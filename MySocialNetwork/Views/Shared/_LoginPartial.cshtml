@@ -1,0 +1,24 @@
+﻿@model MySocialNetwork.Models.LoginModel
+
+@if (Request.IsAuthenticated)
+{
+    <div class="account">
+        <ul>
+            <li>@Html.ActionLink(User.Identity.Name, "Manage", "Account")</li>
+            <li>@Html.ActionLink("Log off", "LogOff", "Account")</li>
+        </ul>
+    </div>
+}
+else
+{
+    <div class="login">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+            <ul>
+                <li>@Html.TextBoxFor(m => m.UserName, new { @Placeholder = "Username" })</li>
+                <li>@Html.PasswordFor(m => m.Password, new { @Placeholder = "Password" })</li>
+                <li><input class="light" type="submit" value="Log in" /></li>
+            </ul>
+        }
+    </div>
+}

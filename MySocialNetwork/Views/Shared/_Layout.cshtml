@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    <header>
+        <div class="banner">
+            <div class="container">
+                @Html.ActionLink("MySocialNetwork", "Index", "Home", null, new { @class = "title" })
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+
+        @if (Request.IsAuthenticated)
+        {
+            <div class="menu">
+                <div class="container">
+                    <nav>
+                        <ul>
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        }
+    </header>
+
+    <section id="body">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year MySocialNetwork</p>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
