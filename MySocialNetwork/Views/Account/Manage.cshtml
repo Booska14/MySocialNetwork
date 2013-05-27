@@ -1,32 +1,35 @@
 ﻿@model MySocialNetwork.Models.LocalPasswordModel
 
 @{
-    ViewBag.Title = "Manage Account";
+    ViewBag.Title = "Manage";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
-
-<p class="message-success">@ViewBag.StatusMessage</p>
-
-<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
-
-@if (ViewBag.HasLocalPassword)
+@using (Html.BeginForm("Manage", "Account"))
 {
-    @Html.Partial("_ChangePasswordPartial")
+    @Html.ValidationSummary(true);
+    
+    <fieldset>
+        <legend>Change password</legend>
+        <ul>
+            <li>
+                @Html.LabelFor(m => m.OldPassword)
+                @Html.PasswordFor(m => m.OldPassword)
+                @Html.ValidationMessageFor(m => m.OldPassword)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.NewPassword)
+                @Html.PasswordFor(m => m.NewPassword)
+                @Html.ValidationMessageFor(m => m.NewPassword)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.ConfirmPassword)
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            </li>
+        </ul>
+        <input type="submit" value="Change password" />
+    </fieldset>
 }
-else
-{ 
-    @Html.Partial("_SetPasswordPartial")
-}
-
-<section id="externalLogins">
-    @Html.Action("RemoveExternalLogins")
-
-    <h3>Add an external login</h3>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

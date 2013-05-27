@@ -46,42 +46,23 @@ p {
     width: 880px;
 }
 
-input {
-    vertical-align: middle;
+.float-container {
+    overflow: hidden;
 }
 
-input[type=text], input[type=password] {
-    border: 1px solid #d0d0d0;
-    height: 19px;
-    padding: 4px 8px;
+.float-left {
+    float: left;
 }
 
-input[type=submit].light {
-    background: #efeff2;
-    border: 1px solid #d0d0d0;
-    cursor: pointer;
-    height: 29px;
-    padding: 4px 8px;
+.float-right {
+    float: right;
 }
 
-    input[type=submit].light:hover {
-        background: #d0d0d0;
-    }
-
-input[type=submit].dark {
-    background: #2d2d30;
-    border: 1px solid #171717;
-    color: #d0d0d0;
-    cursor: pointer;
-    height: 29px;
-    padding: 4px 8px;
+.float-clear {
+    clear: both;
 }
 
-    input[type=submit].dark:hover {
-        background: #171717;
-    }
-
-/* Header */
+/* header */
 
 .banner {
     background: #2d2d30;
@@ -97,7 +78,7 @@ input[type=submit].dark {
             color: #fff;
         }
 
-/* Title */
+/* title */
 
 .title {
     float: left;
@@ -105,7 +86,7 @@ input[type=submit].dark {
     margin: 9px;
 }
 
-/* Account */
+/* account */
 
 .account {
     float: right;
@@ -126,7 +107,7 @@ input[type=submit].dark {
             background: #3e3e40;
         }
 
-/* Menu */
+/* menu */
 
 .menu {
     background: #3b5998;
@@ -165,7 +146,7 @@ input[type=submit].dark {
             color: #fff;
         }
 
-/* Body */
+/* body */
 
 #body {
     background: #efeff2;
@@ -177,50 +158,71 @@ input[type=submit].dark {
         margin-top: 12px;
     }
 
-/* Footer */
+/* footer */
 
 footer p {
     padding: 12px;
 }
 
-/* Login */
-
-.login {
-    float: right;
-    margin-right: 9px;
-}
-
-    .login ul {
-        margin: 11px 0;
-    }
-
-    .login li {
-        display: inline;
-        margin: 0 3px;
-        vertical-align: middle;
-    }
-
-/* registration */
-
-.registration legend {
-    font-size: 1.75em;
-    font-weight: bold;
-    margin: 12px 0 24px 0;
-}
-
-.registration li {
-    margin: 12px 0;
-}
-
-.registration label {
-    display: inline-block;
-    width: 150px;
-}
+/* forms */
 
 input[type=text], input[type=password] {
+    border: 1px solid #d0d0d0;
+    height: 19px;
+    padding: 4px 8px;
     width: 150px;
 }
 
-.registration input[type=submit] {
+input[type=checkbox] {
+    height: 19px;
+    padding: 4px 0;
+    vertical-align: middle;
+}
+
+input[type=submit] {
+    background: #2d2d30;
+    border: 1px solid #171717;
+    color: #d0d0d0;
+    cursor: pointer;
+    margin-top: 12px;
+    padding: 8px 12px;
+}
+
+    input[type=submit]:hover {
+        background: #171717;
+    }
+
+label + input[type=text], label + input[type=password] {
+    display: block;
+}
+
+label + input[type=checkbox] {
+    display: inline;
+    vertical-align: middle;
+}
+
+form legend {
+    font-size: 1.50em;
+    font-weight: bold;
+    margin: 0 0 24px 0;
+}
+
+form li {
     margin: 12px 0;
+}
+
+/* validation */
+
+.field-validation-error {
+    color: #a4373a;
+    font-weight: bold;
+}
+
+input.input-validation-error {
+    border-color: #a4373a;
+}
+
+.validation-summary-errors {
+    color: #a4373a;
+    font-weight: bold;
 }

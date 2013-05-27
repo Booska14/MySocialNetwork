@@ -6,9 +6,9 @@ using System.Web;
 
 namespace MySocialNetwork.Models
 {
-    public class UsersContext : DbContext
+    public class MyContext : DbContext
     {
-        public UsersContext()
+        public MyContext()
             : base("DefaultConnection")
         {
         }

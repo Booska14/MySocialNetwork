@@ -7,7 +7,6 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
 
 <body>
@@ -15,24 +14,18 @@
         <div class="banner">
             <div class="container">
                 @Html.ActionLink("MySocialNetwork", "Index", "Home", null, new { @class = "title" })
-                @Html.Partial("_LoginPartial")
+                @Html.Partial("_AccountPartial");
             </div>
         </div>
-
-        @if (Request.IsAuthenticated)
-        {
-            <div class="menu">
-                <div class="container">
-                    <nav>
-                        <ul>
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
+        <div class="menu">
+            <div class="container">
+                <nav>
+                    <ul>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    </ul>
+                </nav>
             </div>
-        }
+        </div>
     </header>
 
     <section id="body">

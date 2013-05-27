@@ -1,7 +1,7 @@
-﻿@model MySocialNetwork.Models.RegisterModel
+﻿@model MySocialNetwork.Models.LoginModel
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Log in";
 }
 
 @using (Html.BeginForm())
@@ -9,7 +9,7 @@
     @Html.ValidationSummary(true);
         
     <fieldset>
-        <legend>Registration</legend>
+        <legend>Log in</legend>
         <ul>
             <li>
                 @Html.LabelFor(m => m.UserName)
@@ -22,12 +22,11 @@
                 @Html.ValidationMessageFor(m => m.Password)
             </li>
             <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-                @Html.ValidationMessageFor(m => m.Password)
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe)
             </li>
         </ul>
-        <input type="submit" value="Register">
+        <input type="submit" value="Log in" />
     </fieldset>
 }
 
