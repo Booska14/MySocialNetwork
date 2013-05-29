@@ -10,7 +10,7 @@ namespace MySocialNetwork
     {
         public static void RegisterWebSecurity()
         {
-            WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfiles", "Id", "UserName", autoCreateTables: true);
+            WebSecurity.InitializeDatabaseConnection("DefaultConnection", "Users", "Id", "Name", autoCreateTables: true);
         }
     }
 }

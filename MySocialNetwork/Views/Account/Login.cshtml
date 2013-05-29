@@ -4,7 +4,7 @@
     ViewBag.Title = "Log in";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "vertical-form" }))
 {
     @Html.ValidationSummary(true);
         

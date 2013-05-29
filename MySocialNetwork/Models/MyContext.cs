@@ -13,6 +13,7 @@ namespace MySocialNetwork.Models
         {
         }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Status> Status { get; set; }
     }
 }

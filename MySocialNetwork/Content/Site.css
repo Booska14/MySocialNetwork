@@ -166,48 +166,48 @@ footer p {
 
 /* forms */
 
-input[type=text], input[type=password] {
+.vertical-form input[type=text], .vertical-form input[type=password] {
     border: 1px solid #d0d0d0;
-    height: 19px;
+    height: 20px;
     padding: 4px 8px;
     width: 150px;
 }
 
-input[type=checkbox] {
-    height: 19px;
+.vertical-form input[type=checkbox] {
+    height: 20px;
     padding: 4px 0;
     vertical-align: middle;
 }
 
-input[type=submit] {
+.vertical-form input[type=submit] {
     background: #2d2d30;
     border: 1px solid #171717;
     color: #d0d0d0;
     cursor: pointer;
-    margin-top: 12px;
+    margin-top: 8px;
     padding: 8px 12px;
 }
 
-    input[type=submit]:hover {
+    .vertical-form input[type=submit]:hover {
         background: #171717;
     }
 
-label + input[type=text], label + input[type=password] {
+.vertical-form label + input[type=text], .vertical-form label + input[type=password] {
     display: block;
 }
 
-label + input[type=checkbox] {
+.vertical-form label + input[type=checkbox] {
     display: inline;
     vertical-align: middle;
 }
 
-form legend {
+.vertical-form legend {
     font-size: 1.50em;
     font-weight: bold;
-    margin: 0 0 24px 0;
+    margin: 0 0 18px 0;
 }
 
-form li {
+.vertical-form li {
     margin: 12px 0;
 }
 

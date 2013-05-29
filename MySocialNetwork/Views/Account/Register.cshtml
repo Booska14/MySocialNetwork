@@ -4,12 +4,12 @@
     ViewBag.Title = "Register";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "vertical-form" }))
 {
     @Html.ValidationSummary(true);
         
     <fieldset>
-        <legend>Registration</legend>
+        <legend>Register</legend>
         <ul>
             <li>
                 @Html.LabelFor(m => m.UserName)

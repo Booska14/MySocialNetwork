@@ -5,9 +5,9 @@ using System.Web;
 
 namespace MySocialNetwork.Models
 {
-    public class UserProfile
+    public class User
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
+        public string Name { get; set; }
     }
 }

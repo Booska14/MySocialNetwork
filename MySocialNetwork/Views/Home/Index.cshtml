@@ -1,5 +1,30 @@
-﻿@{
+﻿@model MySocialNetwork.ViewModels.HomeIndexViewModel
+
+@{
     ViewBag.Title = "Home";
 }
 
-<h1>Home</h1>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(m => m.Message)
+    @Html.TextBoxFor(m => m.Message)
+    <input type="submit" value="Post" />
+}
+
+<ul>
+    @foreach (var status in Model.Status)
+    {
+        <li>
+            @Html.LabelFor(m => status.User.Name)
+            @Html.DisplayFor(m => status.User.Name)
+        </li>
+        <li>
+            @Html.LabelFor(m => status.DateTime)
+            @Html.DisplayFor(m => status.DateTime)
+        </li>
+        <li>
+            @Html.LabelFor(m => status.Message)
+            @Html.DisplayFor(m => status.Message)
+        </li>
+    }
+</ul>
