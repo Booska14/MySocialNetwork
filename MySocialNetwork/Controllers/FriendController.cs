@@ -22,8 +22,10 @@ namespace MySocialNetwork.Controllers
         public ActionResult Index()
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-            var friends = currentUser.Friends.ToList();
-            var users = context.Users.ToList().Except(friends).Where(u => u != currentUser);
+            var friends = currentUser.Friends;
+            var users = context.Users
+                .Where(u => u.Id != currentUser.Id && !friends.Any(f => f.Id == u.Id))
+                .ToList();
 
             var viewModel = new FriendIndexViewModel
             {
