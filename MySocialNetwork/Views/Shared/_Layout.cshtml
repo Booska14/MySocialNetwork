@@ -14,17 +14,12 @@
         <div class="banner">
             <div class="container">
                 @Html.ActionLink("MySocialNetwork", "Index", "Home", null, new { @class = "title" })
-                @Html.Partial("_AccountPartial");
+                @Html.Partial("AccountPartial");
             </div>
         </div>
         <div class="menu">
             <div class="container">
-                <nav>
-                    <ul>
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Friend", "Index", "Friend")</li>
-                    </ul>
-                </nav>
+                @Html.Partial("MenuPartial")
             </div>
         </div>
     </header>
@@ -42,6 +37,5 @@
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

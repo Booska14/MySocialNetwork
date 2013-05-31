@@ -1,13 +1,13 @@
-﻿@model MySocialNetwork.ViewModels.HomeIndexViewModel
+﻿@model MySocialNetwork.ViewModels.StatusIndexViewModel
 
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Status";
 }
 
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(m => m.Message)
-    @Html.TextBoxFor(m => m.Message)
+    @Html.LabelFor(m => m.StatusMessage)
+    @Html.TextBoxFor(m => m.StatusMessage)
     <input type="submit" value="Post" />
 }
 

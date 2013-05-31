@@ -1,3 +1,23 @@
-﻿@{
+﻿@model MySocialNetwork.ViewModels.FriendIndexViewModel
+
+@{
     ViewBag.Title = "Friend";
 }
+
+@Html.Partial("FriendsPartial", Model.Friends)
+
+@using (Ajax.BeginForm("Search", "Friend",
+    new AjaxOptions
+    {
+        HttpMethod = "get",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "users"
+    }))
+
+{
+    @Html.LabelFor(m => m.UserName)
+    @Html.TextBoxFor(m => m.UserName)
+    <input type="submit" value="Search" />
+}
+
+@Html.Partial("UsersPartial", Model.Users)

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<MySocialNetwork.Models.User>
+
+<ul id="users">
+    @foreach (var user in Model)
+    {
+        <li>
+            @Html.LabelFor(m => user.Name)
+            @Html.DisplayFor(m => user.Name)
+        </li>
+    }
+</ul>

@@ -24,7 +24,7 @@ namespace MySocialNetwork.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Status");
             }
 
             // If we got this far, something failed, redisplay form
@@ -37,7 +37,7 @@ namespace MySocialNetwork.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Status");
         }
 
         [AllowAnonymous]
@@ -57,7 +57,7 @@ namespace MySocialNetwork.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Status");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -112,6 +112,11 @@ namespace MySocialNetwork.Controllers
         }
 
         #region Helpers
+        private ActionResult RedirectToLocal()
+        {
+            return RedirectToAction("Index", "Status");
+        }
+
         public enum ManageMessageId
         {
             ChangePasswordSuccess,

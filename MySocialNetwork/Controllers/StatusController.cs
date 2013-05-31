@@ -10,20 +10,22 @@ using WebMatrix.WebData;
 namespace MySocialNetwork.Controllers
 {
     [Authorize]
-    public class HomeController : Controller, IDisposable
+    public class StatusController : Controller, IDisposable
     {
         private MyContext context;
 
-        public HomeController()
+        public StatusController()
         {
             context = new MyContext();
         }
 
         public ActionResult Index()
         {
-            var viewModel = new HomeIndexViewModel
+            var status = context.Status.ToList();
+
+            var viewModel = new StatusIndexViewModel
             {
-                Status = context.Status.ToList()
+                Status = status
             };
 
             return View(viewModel);
@@ -32,9 +34,11 @@ namespace MySocialNetwork.Controllers
         [HttpPost]
         public ActionResult Index(string statusMessage)
         {
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+
             var status = new Status
             {
-                User = context.Users.Find(WebSecurity.CurrentUserId),
+                User = currentUser,
                 Message = statusMessage,
                 DateTime = DateTime.Now
             };

@@ -1,0 +1,16 @@
+﻿<div class="account">
+    @if (Request.IsAuthenticated)
+    {
+        <ul>
+            <li>@Html.ActionLink(User.Identity.Name, "Manage", "Account")</li>
+            <li>@Html.ActionLink("Log off", "LogOff", "Account")</li>
+        </ul>
+    }
+    else
+    {
+        <ul>
+            <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+            <li>@Html.ActionLink("Register", "Register", "Account")</li>
+        </ul>
+    }
+</div>

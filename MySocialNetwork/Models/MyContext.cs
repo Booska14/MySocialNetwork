@@ -15,5 +15,10 @@ namespace MySocialNetwork.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Status> Status { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasMany(u => u.Friends).WithMany();
+        }
     }
 }
