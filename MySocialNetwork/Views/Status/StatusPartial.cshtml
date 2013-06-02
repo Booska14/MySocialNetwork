@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MySocialNetwork.Models.Status>
+
+<ul>
+    @foreach (var status in Model)
+    {
+        <li>
+            @Html.LabelFor(m => status.User.Name)
+            @Html.DisplayFor(m => status.User.Name)
+        </li>
+        <li>
+            @Html.LabelFor(m => status.DateTime)
+            @Html.DisplayFor(m => status.DateTime)
+        </li>
+        <li>
+            @Html.LabelFor(m => status.Message)
+            @Html.DisplayFor(m => status.Message)
+        </li>
+        <li>
+            @using (Html.BeginForm("Comment", "Status"))
+            {
+                <input type="submit" value="Comment" />
+            }
+        </li>
+        <li>
+            @using (Html.BeginForm("Like", "Status"))
+            {
+                <input type="submit" value="Like" />
+            }
+        </li>
+        <li>
+            @using (Html.BeginForm("Dislike", "Status"))
+            {
+                <input type="submit" value="Dislike" />
+            }
+        </li>
+    }
+</ul>

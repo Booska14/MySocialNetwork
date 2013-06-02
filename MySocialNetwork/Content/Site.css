@@ -166,16 +166,22 @@ footer p {
 
 /* forms */
 
-.vertical-form input[type=text], .vertical-form input[type=password] {
+.vertical-form input[type=text],
+.vertical-form input[type=password] {
     border: 1px solid #d0d0d0;
     height: 20px;
     padding: 4px 8px;
     width: 150px;
 }
 
+.vertical-form input[type=text].input-validation-error,
+.vertical-form input[type=password].input-validation-error {
+    border-color: #a4373a;
+}
+
 .vertical-form input[type=checkbox] {
+    border: 1px solid #d0d0d0;
     height: 20px;
-    padding: 4px 0;
     vertical-align: middle;
 }
 
@@ -192,11 +198,11 @@ footer p {
         background: #171717;
     }
 
-.vertical-form label + input[type=text], .vertical-form label + input[type=password] {
+.vertical-form label {
     display: block;
 }
 
-.vertical-form label + input[type=checkbox] {
+.vertical-form .checkbox {
     display: inline;
     vertical-align: middle;
 }
@@ -211,18 +217,10 @@ footer p {
     margin: 12px 0;
 }
 
-/* validation */
-
-.field-validation-error {
+.vertical-form .validation-summary-errors {
     color: #a4373a;
-    font-weight: bold;
 }
 
-input.input-validation-error {
-    border-color: #a4373a;
-}
-
-.validation-summary-errors {
+.vertical-form .field-validation-error {
     color: #a4373a;
-    font-weight: bold;
 }

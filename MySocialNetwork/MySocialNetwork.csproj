@@ -220,17 +220,18 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\AccountPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Friend\Index.cshtml" />
     <Content Include="Views\Shared\MenuPartial.cshtml" />
     <Content Include="Views\Friend\UsersPartial.cshtml" />
     <Content Include="Views\Friend\FriendsPartial.cshtml" />
+    <Content Include="Views\Status\StatusPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

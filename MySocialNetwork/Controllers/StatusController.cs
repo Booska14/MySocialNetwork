@@ -21,7 +21,12 @@ namespace MySocialNetwork.Controllers
 
         public ActionResult Index()
         {
-            var status = context.Status.ToList();
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var friendIds = currentUser.Friends.Select(f => f.Id);
+            var status = context.Status
+                .Where(s => s.User.Id == currentUser.Id
+                    || friendIds.Any(f => f == s.User.Id))
+                .OrderByDescending(s => s.DateTime);
 
             var viewModel = new StatusIndexViewModel
             {
@@ -32,7 +37,7 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string statusMessage)
+        public ActionResult Update(string statusMessage)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
 
@@ -47,6 +52,24 @@ namespace MySocialNetwork.Controllers
             context.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Comment(int statusId, string message)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Like(int statusId)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Dislike(int statusId)
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

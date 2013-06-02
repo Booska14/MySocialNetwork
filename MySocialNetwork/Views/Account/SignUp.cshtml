@@ -1,15 +1,15 @@
 ﻿@model MySocialNetwork.Models.RegisterModel
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Sign up";
 }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "vertical-form" }))
+@using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { @class = "vertical-form" }))
 {
     @Html.ValidationSummary(true);
         
     <fieldset>
-        <legend>Register</legend>
+        <legend>Sign up</legend>
         <ul>
             <li>
                 @Html.LabelFor(m => m.UserName)
@@ -24,9 +24,9 @@
             <li>
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword)
-                @Html.ValidationMessageFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
             </li>
         </ul>
-        <input type="submit" value="Register">
+        <input type="submit" value="Sign up">
     </fieldset>
 }

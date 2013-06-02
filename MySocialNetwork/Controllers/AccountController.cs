@@ -13,18 +13,18 @@ namespace MySocialNetwork.Controllers
     public class AccountController : Controller
     {
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult LogIn()
         {
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginModel model)
+        public ActionResult LogIn(LoginModel model)
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToAction("Index", "Status");
+                return RedirectToLocal();
             }
 
             // If we got this far, something failed, redisplay form
@@ -33,22 +33,22 @@ namespace MySocialNetwork.Controllers
             return View(model);
         }
 
-        public ActionResult LogOff()
+        public ActionResult LogOut()
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Status");
+            return RedirectToLocal();
         }
 
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult SignUp()
         {
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult SignUp(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace MySocialNetwork.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Status");
+                    return RedirectToLocal();
                 }
                 catch (MembershipCreateUserException e)
                 {

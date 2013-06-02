@@ -13,11 +13,13 @@
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "users"
     }))
-
 {
-    @Html.LabelFor(m => m.UserName)
-    @Html.TextBoxFor(m => m.UserName)
-    <input type="submit" value="Search" />
+    <fieldset>
+        <legend>Search your friends</legend>
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName)
+        <input type="submit" value="Search" />
+    </fieldset>
 }
 
 @Html.Partial("UsersPartial", Model.Users)

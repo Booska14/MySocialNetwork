@@ -23,9 +23,10 @@ namespace MySocialNetwork.Controllers
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var friends = currentUser.Friends;
+            var friendIds = friends.Select(f => f.Id);
             var users = context.Users
-                .Where(u => u.Id != currentUser.Id && !friends.Any(f => f.Id == u.Id))
-                .ToList();
+                .Where(u => u.Id != currentUser.Id
+                    && !friendIds.Any(f => f == u.Id));
 
             var viewModel = new FriendIndexViewModel
             {
@@ -38,9 +39,40 @@ namespace MySocialNetwork.Controllers
 
         public ActionResult Search(string userName)
         {
-            var users = context.Users.Where(u => u.Name.Contains(userName));
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var friends = currentUser.Friends.OrderBy(f => f.Name);
+            var friendIds = friends.Select(f => f.Id);
+            var users = context.Users
+                .Where(u => u.Name.Contains(userName)
+                    && u.Id != currentUser.Id
+                    && !friendIds.Any(f => f == u.Id))
+                .OrderBy(u => u.Name);
 
             return PartialView("UsersPartial", users);
+        }
+
+        [HttpPost]
+        public ActionResult Add(User user)
+        {
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var friend = context.Users.Find(user.Id);
+
+            currentUser.Friends.Add(friend);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Remove(User user)
+        {
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var friend = context.Users.Find(user.Id);
+
+            currentUser.Friends.Remove(friend);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

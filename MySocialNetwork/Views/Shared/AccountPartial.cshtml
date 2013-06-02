@@ -3,14 +3,14 @@
     {
         <ul>
             <li>@Html.ActionLink(User.Identity.Name, "Manage", "Account")</li>
-            <li>@Html.ActionLink("Log off", "LogOff", "Account")</li>
+            <li>@Html.ActionLink("Log out", "LogOut", "Account")</li>
         </ul>
     }
     else
     {
         <ul>
-            <li>@Html.ActionLink("Log in", "Login", "Account")</li>
-            <li>@Html.ActionLink("Register", "Register", "Account")</li>
+            <li>@Html.ActionLink("Log in", "LogIn", "Account")</li>
+            <li>@Html.ActionLink("Sign up", "SignUp", "Account")</li>
         </ul>
     }
 </div>

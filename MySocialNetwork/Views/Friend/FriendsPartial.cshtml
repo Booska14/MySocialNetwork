@@ -6,6 +6,11 @@
         <li>
             @Html.LabelFor(m => user.Name)
             @Html.DisplayFor(m => user.Name)
+            @using (Html.BeginForm("Remove", "Friend"))
+            {
+                @Html.HiddenFor(m => user.Id)
+                <input type="submit" value="Remove" />
+            }
         </li>
     }
 </ul>

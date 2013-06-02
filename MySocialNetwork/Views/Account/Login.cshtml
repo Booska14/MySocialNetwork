@@ -4,7 +4,7 @@
     ViewBag.Title = "Log in";
 }
 
-@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "vertical-form" }))
+@using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new { @class = "vertical-form" }))
 {
     @Html.ValidationSummary(true);
         
@@ -23,7 +23,7 @@
             </li>
             <li>
                 @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ul>
         <input type="submit" value="Log in" />
