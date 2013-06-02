@@ -233,6 +233,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\MenuPartial.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\User\UsersPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

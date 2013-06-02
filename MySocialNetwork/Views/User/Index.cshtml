@@ -35,17 +35,4 @@
     </fieldset>
 }
 
-<ul id="users">
-    @foreach (var user in Model.Users)
-    {
-        <li>
-            @Html.LabelFor(m => user.Name)
-            @Html.DisplayFor(m => user.Name)
-            @using (Html.BeginForm("AddToFriends", "User"))
-            {
-                <input type="hidden" name="userId" value="@user.Id" />
-                <input type="submit" value="Add" />
-            }
-        </li>
-    }
-</ul>
+@Html.Partial("UsersPartial", Model.Users)
