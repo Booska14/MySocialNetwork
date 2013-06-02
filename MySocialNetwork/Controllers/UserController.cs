@@ -10,14 +10,9 @@ using WebMatrix.WebData;
 namespace MySocialNetwork.Controllers
 {
     [Authorize]
-    public class FriendController : Controller, IDisposable
+    public class UserController : Controller, IDisposable
     {
-        private MyContext context;
-
-        public FriendController()
-        {
-            context = new MyContext();
-        }
+        private MyContext context = new MyContext();
 
         public ActionResult Index()
         {
@@ -28,7 +23,7 @@ namespace MySocialNetwork.Controllers
                 .Where(u => u.Id != currentUser.Id
                     && !friendIds.Any(f => f == u.Id));
 
-            var viewModel = new FriendIndexViewModel
+            var viewModel = new FriendViewModel
             {
                 Friends = friends,
                 Users = users
@@ -37,13 +32,13 @@ namespace MySocialNetwork.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Search(string userName)
+        public ActionResult Search(string name)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var friends = currentUser.Friends.OrderBy(f => f.Name);
             var friendIds = friends.Select(f => f.Id);
             var users = context.Users
-                .Where(u => u.Name.Contains(userName)
+                .Where(u => u.Name.Contains(name)
                     && u.Id != currentUser.Id
                     && !friendIds.Any(f => f == u.Id))
                 .OrderBy(u => u.Name);
@@ -52,10 +47,10 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(User user)
+        public ActionResult AddToFriends(int userId)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-            var friend = context.Users.Find(user.Id);
+            var friend = context.Users.Find(userId);
 
             currentUser.Friends.Add(friend);
             context.SaveChanges();
@@ -64,10 +59,10 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult Remove(User user)
+        public ActionResult RemoveFromFriends(int userId)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-            var friend = context.Users.Find(user.Id);
+            var friend = context.Users.Find(userId);
 
             currentUser.Friends.Remove(friend);
             context.SaveChanges();

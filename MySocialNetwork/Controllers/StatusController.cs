@@ -12,23 +12,18 @@ namespace MySocialNetwork.Controllers
     [Authorize]
     public class StatusController : Controller, IDisposable
     {
-        private MyContext context;
-
-        public StatusController()
-        {
-            context = new MyContext();
-        }
+        private MyContext context = new MyContext();
 
         public ActionResult Index()
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var friendIds = currentUser.Friends.Select(f => f.Id);
             var status = context.Status
-                .Where(s => s.User.Id == currentUser.Id
-                    || friendIds.Any(f => f == s.User.Id))
+                .Where(s => s.Author.Id == currentUser.Id
+                    || friendIds.Any(f => f == s.Author.Id))
                 .OrderByDescending(s => s.DateTime);
 
-            var viewModel = new StatusIndexViewModel
+            var viewModel = new StatusViewModel
             {
                 Status = status
             };
@@ -37,14 +32,14 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(string statusMessage)
+        public ActionResult Add(string message)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
 
             var status = new Status
             {
-                User = currentUser,
-                Message = statusMessage,
+                Author = currentUser,
+                Message = message,
                 DateTime = DateTime.Now
             };
 
@@ -55,19 +50,13 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult Comment(int statusId, string message)
+        public ActionResult Like(int id)
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Like(int statusId)
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Dislike(int statusId)
+        public ActionResult Dislike(int id)
         {
             return View();
         }

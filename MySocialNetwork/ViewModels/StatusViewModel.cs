@@ -6,9 +6,9 @@ using System.Web;
 
 namespace MySocialNetwork.ViewModels
 {
-    public class StatusIndexViewModel
+    public class StatusViewModel
     {
-        public string StatusMessage { get; set; }
+        public string Message { get; set; }
         public IEnumerable<Status> Status { get; set; }
     }
 }

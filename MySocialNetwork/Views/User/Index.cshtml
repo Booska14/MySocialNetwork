@@ -1,0 +1,51 @@
+﻿@model MySocialNetwork.ViewModels.FriendViewModel
+
+@{
+    ViewBag.Title = "Friend";
+}
+
+<ul>
+    @foreach (var friend in Model.Friends)
+    {
+        <li>
+            @Html.LabelFor(m => friend.Name)
+            @Html.DisplayFor(m => friend.Name)
+            @using (Html.BeginForm("RemoveFromFriends", "User"))
+            {
+                <input type="hidden" name="userId" value="@friend.Id" />
+                <input type="submit" value="Remove" />
+            }
+        </li>
+    }
+</ul>
+
+@using (Ajax.BeginForm("Search", "User",
+    new AjaxOptions
+    {
+        HttpMethod = "get",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "users"
+    }))
+{
+    <fieldset>
+        <legend>Search your friends</legend>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+        <input type="submit" value="Search" />
+    </fieldset>
+}
+
+<ul id="users">
+    @foreach (var user in Model.Users)
+    {
+        <li>
+            @Html.LabelFor(m => user.Name)
+            @Html.DisplayFor(m => user.Name)
+            @using (Html.BeginForm("AddToFriends", "User"))
+            {
+                <input type="hidden" name="userId" value="@user.Id" />
+                <input type="submit" value="Add" />
+            }
+        </li>
+    }
+</ul>

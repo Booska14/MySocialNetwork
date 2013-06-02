@@ -184,15 +184,18 @@
     <Compile Include="App_Start\WebSecurityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\FriendController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="ViewModels\FriendIndexViewModel.cs" />
-    <Compile Include="ViewModels\StatusIndexViewModel.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\FriendViewModel.cs" />
+    <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\MyContext.cs" />
@@ -227,11 +230,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Account\LogIn.cshtml" />
-    <Content Include="Views\Friend\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\MenuPartial.cshtml" />
-    <Content Include="Views\Friend\UsersPartial.cshtml" />
-    <Content Include="Views\Friend\FriendsPartial.cshtml" />
-    <Content Include="Views\Status\StatusPartial.cshtml" />
+    <Content Include="Views\Comment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
