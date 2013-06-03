@@ -18,11 +18,12 @@ namespace MySocialNetwork.Controllers
         public ActionResult Index(int statusId)
         {
             var status = context.Status.Find(statusId);
+            var comments = status.Comments.OrderBy(c => c.DateTime);
 
             var viewModel = new CommentViewModel
             {
                 Status = status,
-                Comments = status.Comments
+                Comments = comments
             };
 
             return PartialView(viewModel);

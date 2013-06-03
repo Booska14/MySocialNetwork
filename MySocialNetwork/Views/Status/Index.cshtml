@@ -4,7 +4,7 @@
     ViewBag.Title = "Home";
 }
 
-@using (Html.BeginForm("Add", "Status"))
+@using (Html.BeginForm("Add", "Status", new { @class = "horizontal-form" }))
 {
     <fieldset>
         <legend>Update your status</legend>
@@ -14,22 +14,25 @@
     </fieldset>
 }
 
-<ul>
+<ul class="status">
     @foreach (var status in Model.Status)
     {
-        <li>
-            @Html.LabelFor(m => status.Author.Name)
-            @Html.DisplayFor(m => status.Author.Name)
-        </li>
-        <li>
-            @Html.LabelFor(m => status.DateTime)
-            @Html.DisplayFor(m => status.DateTime)
-        </li>
-        <li>
-            @Html.LabelFor(m => status.Message)
-            @Html.DisplayFor(m => status.Message)
-        </li>
-        <li>
+        <li class="status">
+            <div class="author">
+                @Html.LabelFor(m => status.Author.Name)
+                @Html.DisplayFor(m => status.Author.Name)
+            </div>
+
+            <div class="datetime">
+                @Html.LabelFor(m => status.DateTime)
+                @Html.DisplayFor(m => status.DateTime)
+            </div>
+
+            <div class="message">
+                @Html.LabelFor(m => status.Message)
+                @Html.DisplayFor(m => status.Message)
+            </div>
+
             @Html.Action("Index", "Comment", new { statusId = status.Id })
         </li>
     }

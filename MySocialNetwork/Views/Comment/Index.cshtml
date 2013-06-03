@@ -1,6 +1,6 @@
 ﻿@model MySocialNetwork.ViewModels.CommentViewModel
 
-@using (Html.BeginForm("Add", "Comment"))
+@using (Html.BeginForm("Add", "Comment", new { @class = "horizontal-form" }))
 {
     <fieldset>
         <legend>Comment the status</legend>
@@ -11,20 +11,24 @@
     </fieldset>
 }
 
-<ul>
-@foreach (var comment in Model.Comments)
-{
-    <li>
-        @Html.LabelFor(m => comment.Author.Name)
-        @Html.DisplayFor(m => comment.Author.Name)
-    </li>
-    <li>
-        @Html.LabelFor(m => comment.DateTime)
-        @Html.DisplayFor(m => comment.DateTime)
-    </li>
-    <li>
-        @Html.LabelFor(m => comment.Message)
-        @Html.DisplayFor(m => comment.Message)
-    </li>
-}
+<ul class="comments">
+    @foreach (var comment in Model.Comments)
+    {
+        <li class="comment">
+            <div class="author">
+                @Html.LabelFor(m => comment.Author.Name)
+                @Html.DisplayFor(m => comment.Author.Name)
+            </div>
+
+            <div class="datetime">
+                @Html.LabelFor(m => comment.DateTime)
+                @Html.DisplayFor(m => comment.DateTime)
+            </div>
+
+            <div class="message">
+                @Html.LabelFor(m => comment.Message)
+                @Html.DisplayFor(m => comment.Message)
+            </div>
+        </li>
+    }
 </ul>

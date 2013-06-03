@@ -164,7 +164,7 @@ footer p {
     padding: 12px;
 }
 
-/* forms */
+/* vertical form */
 
 .vertical-form input[type=text],
 .vertical-form input[type=password] {
@@ -180,7 +180,6 @@ footer p {
 }
 
 .vertical-form input[type=checkbox] {
-    border: 1px solid #d0d0d0;
     height: 20px;
     vertical-align: middle;
 }
