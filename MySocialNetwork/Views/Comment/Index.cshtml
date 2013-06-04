@@ -1,34 +1,23 @@
 ﻿@model MySocialNetwork.ViewModels.CommentViewModel
 
-@using (Html.BeginForm("Add", "Comment", new { @class = "horizontal-form" }))
-{
-    <fieldset>
-        <legend>Comment the status</legend>
-        @Html.LabelFor(m => m.Message)
-        @Html.TextBoxFor(m => m.Message)
-        <input type="hidden" name="statusId" value="@Model.Status.Id" />
-        <input type="submit" value="Comment" />
-    </fieldset>
-}
+<section class="comment">
+    <ul>
+        @foreach (var comment in Model.Comments)
+        {
+            <li>
+                <span class="author">@Html.DisplayFor(m => comment.Author.Name)</span>
+                <span class="datetime">@Html.DisplayFor(m => comment.DateTime)</span>
+                <div class="message">
+                    @Html.DisplayFor(m => comment.Message)
+                </div>
+            </li>
+        }
+    </ul>
 
-<ul class="comments">
-    @foreach (var comment in Model.Comments)
+    @using (Html.BeginForm("Add", "Comment"))
     {
-        <li class="comment">
-            <div class="author">
-                @Html.LabelFor(m => comment.Author.Name)
-                @Html.DisplayFor(m => comment.Author.Name)
-            </div>
-
-            <div class="datetime">
-                @Html.LabelFor(m => comment.DateTime)
-                @Html.DisplayFor(m => comment.DateTime)
-            </div>
-
-            <div class="message">
-                @Html.LabelFor(m => comment.Message)
-                @Html.DisplayFor(m => comment.Message)
-            </div>
-        </li>
+        <input type="hidden" name="statusId" value="@Model.Status.Id" />
+        <input type="text" name="message" />
+        <input type="submit" value="Comment" />
     }
-</ul>
+</section>

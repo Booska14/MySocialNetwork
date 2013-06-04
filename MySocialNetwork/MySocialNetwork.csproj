@@ -195,7 +195,6 @@
     <Compile Include="Models\Comment.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\FriendViewModel.cs" />
-    <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\MyContext.cs" />

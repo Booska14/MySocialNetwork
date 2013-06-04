@@ -23,12 +23,7 @@ namespace MySocialNetwork.Controllers
                     || friendIds.Any(f => f == s.Author.Id))
                 .OrderByDescending(s => s.DateTime);
 
-            var viewModel = new StatusViewModel
-            {
-                Status = status
-            };
-
-            return View(viewModel);
+            return View(status);
         }
 
         [HttpPost]

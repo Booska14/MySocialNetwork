@@ -8,7 +8,6 @@
     @foreach (var friend in Model.Friends)
     {
         <li>
-            @Html.LabelFor(m => friend.Name)
             @Html.DisplayFor(m => friend.Name)
             @using (Html.BeginForm("RemoveFromFriends", "User"))
             {
@@ -27,12 +26,8 @@
         UpdateTargetId = "users"
     }))
 {
-    <fieldset>
-        <legend>Search your friends</legend>
-        @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name)
-        <input type="submit" value="Search" />
-    </fieldset>
+    <input type="text" name="name" />
+    <input type="submit" value="Search" />
 }
 
 @Html.Partial("UsersPartial", Model.Users)
