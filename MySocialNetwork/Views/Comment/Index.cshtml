@@ -17,7 +17,7 @@
     @using (Html.BeginForm("Add", "Comment"))
     {
         <input type="hidden" name="statusId" value="@Model.Status.Id" />
-        <input type="text" name="message" />
-        <input type="submit" value="Comment" />
+        <input type="text" name="message" placeholder="Comment" />
+        <input type="submit" value="Post" />
     }
 </section>

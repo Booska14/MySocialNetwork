@@ -28,7 +28,7 @@ h1, h2 {
 h1 {
     font-size: 1.75em;
     font-weight: bold;
-    margin: 10px 0;
+    margin-bottom: 24px;
 }
 
 h2 {
@@ -42,7 +42,9 @@ p {
 }
 
 .container {
+    box-sizing: border-box;
     margin: 0 auto;
+    overflow: hidden;
     width: 880px;
 }
 
@@ -88,23 +90,24 @@ p {
 
 /* account */
 
-.account {
+.account-menu {
     float: right;
 }
 
-    .account li {
+    .account-menu li {
         display: inline;
         margin-left: -4px;
     }
 
-    .account a {
+    .account-menu a {
         display: inline-block;
         padding: 16px;
     }
 
-        .account a:hover {
+        .account-menu a:hover {
+            background: #171717;
+            border-radius: 5px;
             color: #fff;
-            background: #3e3e40;
         }
 
 /* menu */
@@ -138,25 +141,21 @@ p {
 
         .menu a:hover {
             background: #133783;
-            color: #fff;
-        }
-
-        .menu a.active {
-            background: #133783;
+            border-radius: 5px;
             color: #fff;
         }
 
 /* body */
 
-#body {
+#body .container {
     background: #efeff2;
     border-bottom: 1px solid #d0d0d0;
-    padding: 12px 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 1px solid #d0d0d0;
+    border-right: 1px solid #d0d0d0;
+    padding: 24px;
 }
-
-    #body p {
-        margin-top: 12px;
-    }
 
 /* footer */
 
@@ -164,62 +163,116 @@ footer p {
     padding: 12px;
 }
 
-/* vertical form */
+/* input */
 
-.vertical-form input[type=text],
-.vertical-form input[type=password] {
+input {
+    border-radius: 5px;
+}
+
+input[type=text],
+input[type=password] {
     border: 1px solid #d0d0d0;
-    height: 20px;
-    padding: 4px 8px;
-    width: 150px;
+    box-sizing: border-box;
+    height: 32px;
+    padding: 0 12px;
 }
 
-.vertical-form input[type=text].input-validation-error,
-.vertical-form input[type=password].input-validation-error {
-    border-color: #a4373a;
-}
-
-.vertical-form input[type=checkbox] {
-    height: 20px;
+input[type=checkbox] {
+    height: 32px;
     vertical-align: middle;
 }
 
-.vertical-form input[type=submit] {
+input[type=submit] {
     background: #2d2d30;
     border: 1px solid #171717;
     color: #d0d0d0;
     cursor: pointer;
-    margin-top: 8px;
-    padding: 8px 12px;
+    height: 32px;
+    padding: 0 12px;
 }
 
-    .vertical-form input[type=submit]:hover {
-        background: #171717;
+    input[type=submit]:hover {
+        color: #fff;
+        background: #3e3e40;
     }
 
-.vertical-form label {
+.input-validation-error {
+    border-color: #a4373a !important;
+}
+
+.validation-summary-errors {
+    color: #a4373a;
+}
+
+.field-validation-error {
+    color: #a4373a;
+}
+
+/* account form */
+
+.account-form label {
     display: block;
 }
 
-.vertical-form .checkbox {
+.account-form .checkbox {
     display: inline;
     vertical-align: middle;
 }
 
-.vertical-form legend {
-    font-size: 1.50em;
-    font-weight: bold;
-    margin: 0 0 18px 0;
-}
-
-.vertical-form li {
+.account-form li {
     margin: 12px 0;
 }
 
-.vertical-form .validation-summary-errors {
-    color: #a4373a;
+.account-form input[type=submit] {
+    margin-top: 12px;
 }
 
-.vertical-form .field-validation-error {
-    color: #a4373a;
+/* status */
+
+#status > form {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+    #status > form > input[type=text] {
+        width: 440px;
+    }
+
+#status > ul > li:first-child {
+    border-top: 1px solid #d0d0d0;
+    padding: 12px 0;
+}
+
+#status > ul > li {
+    border-bottom: 1px solid #d0d0d0;
+    padding: 12px 0;
+}
+
+#status > ul > li:last-child {
+    border-bottom: 0px;
+    padding: 12px 0;
+}
+
+/* comment */
+.comment {
+    margin-left: 36px;
+    margin-top: 6px;
+}
+
+    .comment li {
+        margin-bottom: 6px;
+    }
+
+    .comment input[type=text] {
+        width: 220px;
+    }
+
+.author {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.datetime {
+    font-size: 0.75em;
+    font-style: italic;
 }

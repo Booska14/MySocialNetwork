@@ -4,29 +4,28 @@
     ViewBag.Title = "Sign up";
 }
 
-@using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { @class = "vertical-form" }))
+<h1>Sign up</h1>
+
+@using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { @class = "account-form" }))
 {
     @Html.ValidationSummary(true);
         
-    <fieldset>
-        <legend>Sign up</legend>
-        <ul>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-                @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </li>
-        </ul>
-        <input type="submit" value="Sign up">
-    </fieldset>
+    <ul>
+        <li>
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword)
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </li>
+    </ul>
+    <input type="submit" value="Sign up">
 }
