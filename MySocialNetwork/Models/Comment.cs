@@ -11,6 +11,7 @@ namespace MySocialNetwork.Models
         public virtual User Author { get; set; }
         public string Message { get; set; }
         public DateTime DateTime { get; set; }
+        public bool IsDeletable { get; set; }
         public virtual Status Status { get; set; }
     }
 }

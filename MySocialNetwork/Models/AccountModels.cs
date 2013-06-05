@@ -8,11 +8,11 @@ namespace MySocialNetwork.Models
 {
     public class LoginModel
     {
-        [Required(ErrorMessage="the user name is required.")]
+        [Required(ErrorMessage="The user name is required.")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "the password is required.")]
+        [Required(ErrorMessage = "The password is required.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -23,11 +23,11 @@ namespace MySocialNetwork.Models
 
     public class RegisterModel
     {
-        [Required(ErrorMessage = "the user name is required.")]
+        [Required(ErrorMessage = "The user name is required.")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "the password is required.")]
+        [Required(ErrorMessage = "The password is required.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -40,12 +40,12 @@ namespace MySocialNetwork.Models
 
     public class LocalPasswordModel
     {
-        [Required(ErrorMessage="the current password is required.")]
+        [Required(ErrorMessage = "The current password is required.")]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
         public string OldPassword { get; set; }
 
-        [Required(ErrorMessage="the new password is required.")]
+        [Required(ErrorMessage = "The new password is required.")]
         [DataType(DataType.Password)]
         [Display(Name = "New password")]
         public string NewPassword { get; set; }

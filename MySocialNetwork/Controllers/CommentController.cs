@@ -13,17 +13,31 @@ namespace MySocialNetwork.Controllers
 {
     public class CommentController : Controller
     {
-        private MyContext context = new MyContext();
+        private MyContext context;
+        private User currentUser;
+
+        public CommentController()
+        {
+            context = new MyContext();
+            currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+        }
 
         public ActionResult Index(int statusId)
         {
             var status = context.Status.Find(statusId);
             var comments = status.Comments.OrderBy(c => c.DateTime);
 
+            foreach (var comment in comments)
+            {
+                comment.IsDeletable =
+                    currentUser == comment.Author || currentUser == status.Author;
+            }
+
             var viewModel = new CommentViewModel
             {
                 Status = status,
-                Comments = comments
+                Comments = comments,
+                CurrentUser = currentUser
             };
 
             return PartialView(viewModel);
@@ -32,7 +46,6 @@ namespace MySocialNetwork.Controllers
         [HttpPost]
         public ActionResult Add(int statusId, string message)
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var status = context.Status.Find(statusId);
 
             var comment = new Comment
@@ -44,6 +57,17 @@ namespace MySocialNetwork.Controllers
             };
 
             context.Comments.Add(comment);
+            context.SaveChanges();
+
+            return RedirectToAction("Index", "Status");
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var comment = context.Comments.Find(id);
+
+            context.Comments.Remove(comment);
             context.SaveChanges();
 
             return RedirectToAction("Index", "Status");

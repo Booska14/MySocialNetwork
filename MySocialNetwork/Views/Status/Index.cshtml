@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MySocialNetwork.Models.Status>
+﻿@model MySocialNetwork.ViewModels.StatusViewModel
 
 @{
     ViewBag.Title = "Home";
@@ -10,18 +10,33 @@
     @using (Html.BeginForm("Add", "Status"))
     {
         <input type="text" name="message" placeholder="Status" />
-        <input type="submit" value="Update" />
+        <input type="submit" value="Add" />
     }
 
     <ul>
-        @foreach (var status in Model)
+        @foreach (var status in Model.Status)
         {
             <li>
-                <span class="author">@Html.DisplayFor(m => status.Author.Name)</span>
-                <span class="datetime">@Html.DisplayFor(m => status.DateTime)</span>
-                <div class="message">
-                    @Html.DisplayFor(m => status.Message)
+                <div class="float-left">
+                    <span class="author">@Html.DisplayFor(m => status.Author.Name)</span>
+                    <span class="datetime">@Html.DisplayFor(m => status.DateTime)</span>
+                    <div class="message">
+                        @Html.DisplayFor(m => status.Message)
+                    </div>
                 </div>
+
+                <div class="float-right">
+                    @if (status.IsDeletable)
+                    {
+                        using (Html.BeginForm("Delete", "Status"))
+                        {
+                            <input type="hidden" name="id" value="@status.Id" />
+                            <input type="submit" value="Delete" />
+                        }
+                    }
+                </div>
+
+                <div class="clear-both"></div>
 
                 @Html.Action("Index", "Comment", new { statusId = status.Id })
             </li>

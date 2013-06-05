@@ -6,10 +6,9 @@ using System.Web;
 
 namespace MySocialNetwork.ViewModels
 {
-    public class CommentViewModel
+    public class StatusViewModel
     {
-        public Status Status { get; set; }
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Status> Status { get; set; }
         public User CurrentUser { get; set; }
     }
 }

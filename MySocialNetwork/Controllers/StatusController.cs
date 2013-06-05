@@ -12,25 +12,40 @@ namespace MySocialNetwork.Controllers
     [Authorize]
     public class StatusController : Controller, IDisposable
     {
-        private MyContext context = new MyContext();
+        private MyContext context;
+        private User currentUser;
+
+        public StatusController()
+        {
+            context = new MyContext();
+            currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+        }
 
         public ActionResult Index()
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var friendIds = currentUser.Friends.Select(f => f.Id);
             var status = context.Status
                 .Where(s => s.Author.Id == currentUser.Id
                     || friendIds.Any(f => f == s.Author.Id))
                 .OrderByDescending(s => s.DateTime);
 
-            return View(status);
+            foreach (var s in status)
+            {
+                s.IsDeletable = currentUser == s.Author;
+            }
+
+            var viewModel = new StatusViewModel
+            {
+                CurrentUser = currentUser,
+                Status = status
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
         public ActionResult Add(string message)
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-
             var status = new Status
             {
                 Author = currentUser,
@@ -45,15 +60,14 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult Like(int id)
+        public ActionResult Delete(int id)
         {
-            return View();
-        }
+            var status = context.Status.Find(id);
 
-        [HttpPost]
-        public ActionResult Dislike(int id)
-        {
-            return View();
+            context.Status.Remove(status);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
