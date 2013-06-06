@@ -23,16 +23,22 @@ namespace MySocialNetwork.Models
                 .HasMany(u => u.Friends)
                 .WithMany();
 
+            modelBuilder.Entity<Status>()
+                .Ignore(s => s.IsDeletable);
+
+            modelBuilder.Entity<Status>()
+                .Ignore(s => s.IsUpdatable);
+
             modelBuilder.Entity<Comment>()
                 .HasRequired(c => c.Status)
                 .WithMany(s => s.Comments)
                 .WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<Status>()
-                .Ignore(s => s.IsDeletable);
-
             modelBuilder.Entity<Comment>()
                 .Ignore(c => c.IsDeletable);
+
+            modelBuilder.Entity<Comment>()
+                .Ignore(c => c.IsUpdatable);
         }
     }
 }

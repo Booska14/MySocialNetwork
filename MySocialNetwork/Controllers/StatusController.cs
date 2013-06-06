@@ -13,58 +13,71 @@ namespace MySocialNetwork.Controllers
     public class StatusController : Controller, IDisposable
     {
         private MyContext context;
-        private User currentUser;
 
         public StatusController()
         {
             context = new MyContext();
-            currentUser = context.Users.Find(WebSecurity.CurrentUserId);
         }
 
         public ActionResult Index()
         {
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var friendIds = currentUser.Friends.Select(f => f.Id);
-            var status = context.Status
+            var statuses = context.Status
                 .Where(s => s.Author.Id == currentUser.Id
                     || friendIds.Any(f => f == s.Author.Id))
                 .OrderByDescending(s => s.DateTime);
 
-            foreach (var s in status)
+            foreach (var status in statuses)
             {
-                s.IsDeletable = currentUser == s.Author;
+                status.IsDeletable = currentUser == status.Author;
+                status.IsUpdatable = currentUser == status.Author;
             }
 
             var viewModel = new StatusViewModel
             {
-                CurrentUser = currentUser,
-                Status = status
+                Status = new Status(),
+                Statuses = statuses
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Add(string message)
+        public ActionResult Create(Status status)
         {
-            var status = new Status
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+
+            var statusToCreate = new Status
             {
                 Author = currentUser,
-                Message = message,
+                Message = status.Message,
                 DateTime = DateTime.Now
             };
 
-            context.Status.Add(status);
+            context.Status.Add(statusToCreate);
             context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Status status)
         {
-            var status = context.Status.Find(id);
+            var statusToDelete = context.Status.Find(status.Id);
 
-            context.Status.Remove(status);
+            context.Status.Remove(statusToDelete);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Update(Status status)
+        {
+            var statusToUpdate = context.Status.Find(status.Id);
+
+            statusToUpdate.Message = status.Message;
             context.SaveChanges();
 
             return RedirectToAction("Index");

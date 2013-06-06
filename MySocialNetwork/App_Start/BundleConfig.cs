@@ -11,7 +11,8 @@ namespace MySocialNetwork
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive*",
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/Site.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
         }

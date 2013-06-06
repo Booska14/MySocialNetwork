@@ -7,30 +7,42 @@
 <h1>News feed</h1>
 
 <section id="status">
-    @using (Html.BeginForm("Add", "Status"))
+    @using (Html.BeginForm("Create", "Status", FormMethod.Post, new { @class = "add" }))
     {
-        <input type="text" name="message" placeholder="Status" />
+        @Html.TextBoxFor(m => Model.Status.Message)
         <input type="submit" value="Add" />
     }
 
     <ul>
-        @foreach (var status in Model.Status)
+        @foreach (var status in Model.Statuses)
         {
             <li>
                 <div class="float-left">
-                    <span class="author">@Html.DisplayFor(m => status.Author.Name)</span>
+                    <span class="author">@Html.DisplayFor(m => status.Author.FullName)</span>
                     <span class="datetime">@Html.DisplayFor(m => status.DateTime)</span>
                     <div class="message">
                         @Html.DisplayFor(m => status.Message)
                     </div>
+
+                    @using (Html.BeginForm("Update", "Status", FormMethod.Post, new { @class = "update" }))
+                    {
+                        @Html.HiddenFor(m => status.Id)
+                        @Html.TextBoxFor(m => status.Message)
+                        <input type="submit" value="Update" />
+                    }
                 </div>
 
                 <div class="float-right">
+                    @if (status.IsUpdatable)
+                    {
+                        <button class="edit">Edit</button>
+                    }
+
                     @if (status.IsDeletable)
                     {
-                        using (Html.BeginForm("Delete", "Status"))
+                        using (Html.BeginForm("Delete", "Status", FormMethod.Post, new { @class = "delete" }))
                         {
-                            <input type="hidden" name="id" value="@status.Id" />
+                            @Html.HiddenFor(m => status.Id)
                             <input type="submit" value="Delete" />
                         }
                     }
@@ -38,7 +50,7 @@
 
                 <div class="clear-both"></div>
 
-                @Html.Action("Index", "Comment", new { statusId = status.Id })
+                @Html.Action("Index", "Comment", status)
             </li>
         }
     </ul>

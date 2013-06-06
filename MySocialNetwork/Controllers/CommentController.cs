@@ -14,60 +14,70 @@ namespace MySocialNetwork.Controllers
     public class CommentController : Controller
     {
         private MyContext context;
-        private User currentUser;
 
         public CommentController()
         {
             context = new MyContext();
-            currentUser = context.Users.Find(WebSecurity.CurrentUserId);
         }
 
-        public ActionResult Index(int statusId)
+        public ActionResult Index(Status status)
         {
-            var status = context.Status.Find(statusId);
-            var comments = status.Comments.OrderBy(c => c.DateTime);
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
 
-            foreach (var comment in comments)
+            foreach (var comment in status.Comments)
             {
-                comment.IsDeletable =
-                    currentUser == comment.Author || currentUser == status.Author;
+                comment.IsDeletable = currentUser.Id == comment.Author.Id || currentUser.Id == status.Author.Id;
+                comment.IsUpdatable = currentUser.Id == comment.Author.Id;
             }
 
             var viewModel = new CommentViewModel
             {
-                Status = status,
-                Comments = comments,
-                CurrentUser = currentUser
+                Comment = new Comment {
+                    Status = status
+                },
+                Comments = status.Comments
             };
 
             return PartialView(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Add(int statusId, string message)
+        public ActionResult Create(Comment comment)
         {
-            var status = context.Status.Find(statusId);
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var status = context.Status.Find(comment.Status.Id);
 
-            var comment = new Comment
+            var commentToCreate = new Comment
             {
                 Author = currentUser,
-                Message = message,
+                Message = comment.Message,
                 DateTime = DateTime.Now,
                 Status = status
             };
 
-            context.Comments.Add(comment);
+            context.Comments.Add(commentToCreate);
             context.SaveChanges();
 
             return RedirectToAction("Index", "Status");
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Comment comment)
         {
-            var comment = context.Comments.Find(id);
+            var commentToRemove = context.Comments.Find(comment.Id);
 
-            context.Comments.Remove(comment);
+            context.Comments.Remove(commentToRemove);
+            context.SaveChanges();
+
+            return RedirectToAction("Index", "Status");
+        }
+
+        [HttpPost]
+        public ActionResult Update(Comment comment)
+        {
+            var commentToUpdate = context.Comments.Find(comment.Id);
+
+            commentToUpdate.Message = comment.Message;
             context.SaveChanges();
 
             return RedirectToAction("Index", "Status");

@@ -8,7 +8,7 @@ namespace MySocialNetwork.ViewModels
 {
     public class StatusViewModel
     {
-        public IEnumerable<Status> Status { get; set; }
-        public User CurrentUser { get; set; }
+        public Status Status { get; set; }
+        public IEnumerable<Status> Statuses { get; set; }
     }
 }

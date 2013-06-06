@@ -8,8 +8,7 @@ namespace MySocialNetwork.ViewModels
 {
     public class CommentViewModel
     {
-        public Status Status { get; set; }
+        public Comment Comment { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
-        public User CurrentUser { get; set; }
     }
 }

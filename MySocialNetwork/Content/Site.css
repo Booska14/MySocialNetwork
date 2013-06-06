@@ -154,7 +154,8 @@ footer p {
 
 /* input */
 
-input {
+input,
+button {
     border-radius: 5px;
 }
 
@@ -171,7 +172,8 @@ input {
         vertical-align: middle;
     }
 
-    input[type=submit] {
+    input[type=submit],
+    button {
         background: #2d2d30;
         border: 1px solid #171717;
         color: #d0d0d0;
@@ -180,7 +182,8 @@ input {
         padding: 0 12px;
     }
 
-        input[type=submit]:hover {
+        input[type=submit]:hover,
+        button:hover {
             background: #3e3e40;
             border-color: #2d2d30;
             color: #fff;
@@ -210,7 +213,7 @@ input {
 }
 
 .account-form li {
-    margin: 12px 0;
+    margin-bottom: 12px;
 }
 
 .account-form input[type=submit] {
@@ -224,7 +227,8 @@ input {
     margin-bottom: 24px;
 }
 
-    #status > form > input[type=text] {
+    #status > form > input[type=text],
+    #status > ul > li > div > form > input[type=text] {
         width: 440px;
     }
 
@@ -248,16 +252,25 @@ input {
         max-width: 440px;
     }
 
+    #status > ul > li > div > .delete,
+    #status > ul > li > div > .edit {
+        display: inline-block;
+    }
+
 /* comment */
 
 .comment {
     margin-left: 36px;
-    margin-top: 6px;
+    margin-top: 12px;
 }
 
     .comment li {
         margin-bottom: 6px;
     }
+
+        .comment li:last-child {
+            margin-bottom: 12px;
+        }
 
     .comment .message {
         max-width: 404px;
@@ -265,6 +278,11 @@ input {
 
     .comment input[type=text] {
         width: 220px;
+    }
+
+    .comment .delete,
+    .comment .edit {
+        display: inline-block;
     }
 
 .author {
@@ -275,4 +293,8 @@ input {
 .datetime {
     font-size: 0.75em;
     font-style: italic;
+}
+
+.update {
+    display: none;
 }

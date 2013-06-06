@@ -6,19 +6,31 @@
         {
             <li>
                 <div class="float-left">
-                    <span class="author">@Html.DisplayFor(m => comment.Author.Name)</span>
+                    <span class="author">@Html.DisplayFor(m => comment.Author.FullName)</span>
                     <span class="datetime">@Html.DisplayFor(m => comment.DateTime)</span>
                     <div class="message">
                         @Html.DisplayFor(m => comment.Message)
                     </div>
+
+                    @using (Html.BeginForm("Update", "Comment", FormMethod.Post, new { @class = "update" }))
+                    {
+                        @Html.HiddenFor(m => comment.Id)
+                        @Html.TextBoxFor(m => comment.Message)
+                        <input type="submit" value="Update" />
+                    }
                 </div>
 
                 <div class="float-right">
+                    @if (comment.IsUpdatable)
+                    {
+                        <button class="edit">Edit</button>
+                    }
+
                     @if (comment.IsDeletable)
                     {
-                        using (Html.BeginForm("Delete", "Comment"))
+                        using (Html.BeginForm("Delete", "Comment", FormMethod.Post, new { @class = "delete" }))
                         {
-                            <input type="hidden" name="id" value="@comment.Id" />
+                            @Html.HiddenFor(m => comment.Id)
                             <input type="submit" value="Delete" />
                         }
                     }
@@ -29,10 +41,10 @@
         }
     </ul>
 
-    @using (Html.BeginForm("Add", "Comment"))
+    @using (Html.BeginForm("Create", "Comment", FormMethod.Post, new { @class = "add" }))
     {
-        <input type="hidden" name="statusId" value="@Model.Status.Id" />
-        <input type="text" name="message" placeholder="Comment" />
+        @Html.HiddenFor(m => m.Comment.Status.Id)
+        @Html.TextBoxFor(m => m.Comment.Message)
         <input type="submit" value="Add" />
     }
 </section>
