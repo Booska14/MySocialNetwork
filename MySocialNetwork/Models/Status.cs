@@ -14,6 +14,5 @@ namespace MySocialNetwork.Models
         public virtual ICollection<Comment> Comments { get; set; }
 
         public bool IsDeletable { get; set; }
-        public bool IsUpdatable { get; set; }
     }
 }

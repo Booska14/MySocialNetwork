@@ -24,14 +24,12 @@ namespace MySocialNetwork.Controllers
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var friendIds = currentUser.Friends.Select(f => f.Id);
             var statuses = context.Status
-                .Where(s => s.Author.Id == currentUser.Id
-                    || friendIds.Any(f => f == s.Author.Id))
+                .Where(s => s.Author.Id == currentUser.Id || friendIds.Any(f => f == s.Author.Id))
                 .OrderByDescending(s => s.DateTime);
 
             foreach (var status in statuses)
             {
                 status.IsDeletable = currentUser == status.Author;
-                status.IsUpdatable = currentUser == status.Author;
             }
 
             var viewModel = new StatusViewModel
@@ -67,17 +65,6 @@ namespace MySocialNetwork.Controllers
             var statusToDelete = context.Status.Find(status.Id);
 
             context.Status.Remove(statusToDelete);
-            context.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public ActionResult Update(Status status)
-        {
-            var statusToUpdate = context.Status.Find(status.Id);
-
-            statusToUpdate.Message = status.Message;
             context.SaveChanges();
 
             return RedirectToAction("Index");

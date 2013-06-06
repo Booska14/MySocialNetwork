@@ -26,9 +26,6 @@ namespace MySocialNetwork.Models
             modelBuilder.Entity<Status>()
                 .Ignore(s => s.IsDeletable);
 
-            modelBuilder.Entity<Status>()
-                .Ignore(s => s.IsUpdatable);
-
             modelBuilder.Entity<Comment>()
                 .HasRequired(c => c.Status)
                 .WithMany(s => s.Comments)

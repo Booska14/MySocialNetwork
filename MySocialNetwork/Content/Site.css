@@ -95,7 +95,6 @@ p {
 
         .account-menu a:hover {
             background: #171717;
-            border-radius: 5px;
             color: #fff;
         }
 
@@ -130,7 +129,6 @@ p {
 
         .menu a:hover {
             background: #133783;
-            border-radius: 5px;
             color: #fff;
         }
 
@@ -232,29 +230,24 @@ button {
         width: 440px;
     }
 
-#status > ul > li:first-child {
-    border-top: 1px solid #d0d0d0;
-    padding: 12px 0;
-}
+
 
 #status > ul > li {
-    border-bottom: 1px solid #d0d0d0;
-    padding: 12px 0;
-    overflow: hidden;
+    margin-left: -24px;
+    margin-right: -24px;
+    padding: 12px 24px;
 }
 
-    #status > ul > li:last-child {
-        border-bottom: 0px;
-        padding: 12px 0;
+    #status > ul > li:hover {
+        background: #d0d0d0;
+        margin-left: -24px;
+        margin-right: -24px;
+        padding-left: 24px;
+        padding-right: 24px;
     }
 
     #status > ul > li > div > .message {
         max-width: 440px;
-    }
-
-    #status > ul > li > div > .delete,
-    #status > ul > li > div > .edit {
-        display: inline-block;
     }
 
 /* comment */

@@ -10,7 +10,7 @@
     @using (Html.BeginForm("Create", "Status", FormMethod.Post, new { @class = "add" }))
     {
         @Html.TextBoxFor(m => Model.Status.Message)
-        <input type="submit" value="Add" />
+        <input type="submit" value="Create" />
     }
 
     <ul>
@@ -23,21 +23,9 @@
                     <div class="message">
                         @Html.DisplayFor(m => status.Message)
                     </div>
-
-                    @using (Html.BeginForm("Update", "Status", FormMethod.Post, new { @class = "update" }))
-                    {
-                        @Html.HiddenFor(m => status.Id)
-                        @Html.TextBoxFor(m => status.Message)
-                        <input type="submit" value="Update" />
-                    }
                 </div>
 
                 <div class="float-right">
-                    @if (status.IsUpdatable)
-                    {
-                        <button class="edit">Edit</button>
-                    }
-
                     @if (status.IsDeletable)
                     {
                         using (Html.BeginForm("Delete", "Status", FormMethod.Post, new { @class = "delete" }))
