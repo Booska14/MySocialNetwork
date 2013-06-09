@@ -8,3 +8,7 @@
         event.stopPropagation();
     });
 });
+
+function OnComplete() {
+    $("input").filter("#Message[placeholder]").val("");
+}

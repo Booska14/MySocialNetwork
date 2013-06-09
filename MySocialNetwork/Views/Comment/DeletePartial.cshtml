@@ -1,0 +1,13 @@
+﻿@model MySocialNetwork.Models.Comment
+
+@using (Ajax.BeginForm("Delete", "Comment", null,
+    new AjaxOptions
+    {
+        HttpMethod = "post",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "comments-" + Model.Status.Id
+    }, new { @class = "delete" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    <input type="submit" value="Delete" />
+}

@@ -1,0 +1,31 @@
+﻿@model MySocialNetwork.Models.Comment
+
+<li>
+    <div class="float-left">
+        <span class="author">
+            @Html.DisplayFor(m => m.Author.FullName)
+        </span>
+        <span class="datetime">
+            @Html.DisplayFor(m => m.DateTime)
+        </span>
+        <div class="message">
+            @Html.DisplayFor(m => m.Message)
+        </div>
+
+        @Html.Partial("UpdatePartial", Model)
+    </div>
+
+    <div class="float-right">
+        @if (Model.IsUpdatable)
+        {
+            <button class="edit">Edit</button>
+        }
+
+        @if (Model.IsDeletable)
+        {
+            @Html.Partial("DeletePartial", Model)
+        }
+    </div>
+
+    <div class="clear-both"></div>
+</li>

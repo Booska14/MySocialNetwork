@@ -235,6 +235,15 @@
     <Content Include="Views\Shared\MenuPartial.cshtml" />
     <Content Include="Views\User\UsersPartial.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Status\DetailsPartial.cshtml" />
+    <Content Include="Views\Status\CreatePartial.cshtml" />
+    <Content Include="Views\Comment\CreatePartial.cshtml" />
+    <Content Include="Views\Comment\DetailsPartial.cshtml" />
+    <Content Include="Views\Comment\UpdatePartial.cshtml" />
+    <Content Include="Views\Status\ListPartial.cshtml" />
+    <Content Include="Views\Comment\ListPartial.cshtml" />
+    <Content Include="Views\Status\DeletePartial.cshtml" />
+    <Content Include="Views\Comment\DeletePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

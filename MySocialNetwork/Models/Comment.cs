@@ -9,7 +9,8 @@ namespace MySocialNetwork.Models
     {
         public int Id { get; set; }
         public virtual string Message { get; set; }
-        public DateTime DateTime { get; set; }
+        public virtual DateTime DateTime { get; set; }
+
         public virtual User Author { get; set; }
         public virtual Status Status { get; set; }
 

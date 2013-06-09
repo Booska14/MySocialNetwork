@@ -21,16 +21,7 @@ namespace MySocialNetwork.Controllers
 
         public ActionResult Index()
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-            var friendIds = currentUser.Friends.Select(f => f.Id);
-            var statuses = context.Status
-                .Where(s => s.Author.Id == currentUser.Id || friendIds.Any(f => f == s.Author.Id))
-                .OrderByDescending(s => s.DateTime);
-
-            foreach (var status in statuses)
-            {
-                status.IsDeletable = currentUser == status.Author;
-            }
+            var statuses = GetStatuses();
 
             var viewModel = new StatusViewModel
             {
@@ -42,32 +33,38 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Status status)
+        public ActionResult Create(Status model)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
 
-            var statusToCreate = new Status
+            var status = new Status
             {
                 Author = currentUser,
-                Message = status.Message,
-                DateTime = DateTime.Now
+                DateTime = DateTime.Now,
+                Message = model.Message,
+                IsDeletable = true
             };
 
-            context.Status.Add(statusToCreate);
+            context.Status.Add(status);
             context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return PartialView("DetailsPartial", status);
         }
 
         [HttpPost]
-        public ActionResult Delete(Status status)
+        public ActionResult Delete(Status model)
         {
-            var statusToDelete = context.Status.Find(status.Id);
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var status = context.Status.Find(model.Id);
 
-            context.Status.Remove(statusToDelete);
+            context.Status.Remove(status);
             context.SaveChanges();
 
-            return RedirectToAction("Index");
+            var statuses = GetStatuses();
+
+            ModelState.Clear();
+
+            return PartialView("ListPartial", statuses);
         }
 
         protected override void Dispose(bool disposing)
@@ -75,5 +72,23 @@ namespace MySocialNetwork.Controllers
             context.Dispose();
             base.Dispose(disposing);
         }
+
+        #region Helpers
+        private IQueryable<Status> GetStatuses()
+        {
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var friendIds = currentUser.Friends.Select(f => f.Id);
+            var statuses = context.Status
+                .Where(s => s.Author.Id == currentUser.Id || friendIds.Any(f => f == s.Author.Id))
+                .OrderByDescending(s => s.DateTime);
+
+            foreach (var status in statuses)
+            {
+                status.IsDeletable = currentUser == status.Author;
+            }
+
+            return statuses;
+        }
+        #endregion
     }
 }

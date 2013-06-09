@@ -1,0 +1,8 @@
+﻿@model IEnumerable<MySocialNetwork.Models.Status>
+
+
+@foreach (var status in Model)
+{
+    @Html.Partial("DetailsPartial", status)
+}
+

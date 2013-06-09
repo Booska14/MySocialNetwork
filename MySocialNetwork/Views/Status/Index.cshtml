@@ -1,45 +1,15 @@
 ﻿@model MySocialNetwork.ViewModels.StatusViewModel
 
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "News";
 }
 
 <h1>News feed</h1>
 
 <section id="status">
-    @using (Html.BeginForm("Create", "Status", FormMethod.Post, new { @class = "add" }))
-    {
-        @Html.TextBoxFor(m => Model.Status.Message)
-        <input type="submit" value="Create" />
-    }
+    @Html.Partial("CreatePartial", Model.Status)
 
-    <ul>
-        @foreach (var status in Model.Statuses)
-        {
-            <li>
-                <div class="float-left">
-                    <span class="author">@Html.DisplayFor(m => status.Author.FullName)</span>
-                    <span class="datetime">@Html.DisplayFor(m => status.DateTime)</span>
-                    <div class="message">
-                        @Html.DisplayFor(m => status.Message)
-                    </div>
-                </div>
-
-                <div class="float-right">
-                    @if (status.IsDeletable)
-                    {
-                        using (Html.BeginForm("Delete", "Status", FormMethod.Post, new { @class = "delete" }))
-                        {
-                            @Html.HiddenFor(m => status.Id)
-                            <input type="submit" value="Delete" />
-                        }
-                    }
-                </div>
-
-                <div class="clear-both"></div>
-
-                @Html.Action("Index", "Comment", status)
-            </li>
-        }
+    <ul id="statuses">
+        @Html.Partial("ListPartial", Model.Statuses)
     </ul>
 </section>

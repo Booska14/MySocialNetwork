@@ -47,10 +47,10 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddToFriends(int userId)
+        public ActionResult AddToFriends(User user)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-            var friend = context.Users.Find(userId);
+            var friend = context.Users.Find(user.Id);
 
             currentUser.Friends.Add(friend);
             context.SaveChanges();
@@ -59,10 +59,10 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult RemoveFromFriends(int userId)
+        public ActionResult RemoveFromFriends(User user)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-            var friend = context.Users.Find(userId);
+            var friend = context.Users.Find(user.Id);
 
             currentUser.Friends.Remove(friend);
             context.SaveChanges();

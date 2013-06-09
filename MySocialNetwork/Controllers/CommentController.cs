@@ -20,67 +20,77 @@ namespace MySocialNetwork.Controllers
             context = new MyContext();
         }
 
-        public ActionResult Index(Status status)
+        public ActionResult Index(Status model)
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-
-            foreach (var comment in status.Comments)
-            {
-                comment.IsDeletable = currentUser.Id == comment.Author.Id || currentUser.Id == status.Author.Id;
-                comment.IsUpdatable = currentUser.Id == comment.Author.Id;
-            }
+            var status = context.Status.Find(model.Id);
+            var comments = GetComments(status);
 
             var viewModel = new CommentViewModel
             {
-                Comment = new Comment {
+                Comment = new Comment
+                {
                     Status = status
                 },
                 Comments = status.Comments
             };
 
+            ModelState.Clear();
+
             return PartialView(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Create(Comment comment)
+        public ActionResult Create(Comment model)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-            var status = context.Status.Find(comment.Status.Id);
+            var status = context.Status.Find(model.Status.Id);
 
-            var commentToCreate = new Comment
+            var comment = new Comment
             {
+                Status = status,
                 Author = currentUser,
-                Message = comment.Message,
                 DateTime = DateTime.Now,
-                Status = status
+                Message = model.Message,
+                IsDeletable = true,
+                IsUpdatable = true
             };
 
-            context.Comments.Add(commentToCreate);
+            context.Comments.Add(comment);
             context.SaveChanges();
 
-            return RedirectToAction("Index", "Status");
+            return PartialView("DetailsPartial", comment);
         }
 
         [HttpPost]
-        public ActionResult Delete(Comment comment)
+        public ActionResult Delete(Comment model)
         {
-            var commentToRemove = context.Comments.Find(comment.Id);
+            var comment = context.Comments.Find(model.Id);
+            var status = context.Status.Find(comment.Status.Id);
 
-            context.Comments.Remove(commentToRemove);
+            context.Comments.Remove(comment);
             context.SaveChanges();
 
-            return RedirectToAction("Index", "Status");
+            var comments = GetComments(status);
+
+            ModelState.Clear();
+
+            return PartialView("ListPartial", comments);
         }
 
         [HttpPost]
-        public ActionResult Update(Comment comment)
+        public ActionResult Update(Comment model)
         {
-            var commentToUpdate = context.Comments.Find(comment.Id);
+            var comment = context.Comments.Find(model.Id);
 
-            commentToUpdate.Message = comment.Message;
+            comment.Message = model.Message;
             context.SaveChanges();
 
-            return RedirectToAction("Index", "Status");
+            var status = context.Status.Find(comment.Status.Id);
+            var comments = GetComments(status);
+
+            ModelState.Clear();
+
+            return PartialView("ListPartial", comments);
         }
 
         protected override void Dispose(bool disposing)
@@ -88,5 +98,22 @@ namespace MySocialNetwork.Controllers
             context.Dispose();
             base.Dispose(disposing);
         }
+
+        #region Helpers
+        private IQueryable<Comment> GetComments(Status status)
+        {
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var comments = context.Comments
+                .Where(c => c.Status.Id == status.Id);
+
+            foreach (var comment in comments)
+            {
+                comment.IsDeletable = currentUser.Id == comment.Author.Id || currentUser.Id == status.Author.Id;
+                comment.IsUpdatable = currentUser.Id == comment.Author.Id;
+            }
+
+            return comments;
+        }
+        #endregion
     }
 }

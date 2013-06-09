@@ -1,50 +1,9 @@
 ﻿@model MySocialNetwork.ViewModels.CommentViewModel
 
 <section class="comment">
-    <ul>
-        @foreach (var comment in Model.Comments)
-        {
-            <li>
-                <div class="float-left">
-                    <span class="author">@Html.DisplayFor(m => comment.Author.FullName)</span>
-                    <span class="datetime">@Html.DisplayFor(m => comment.DateTime)</span>
-                    <div class="message">
-                        @Html.DisplayFor(m => comment.Message)
-                    </div>
-
-                    @using (Html.BeginForm("Update", "Comment", FormMethod.Post, new { @class = "update" }))
-                    {
-                        @Html.HiddenFor(m => comment.Id)
-                        @Html.TextBoxFor(m => comment.Message)
-                        <input type="submit" value="Update" />
-                    }
-                </div>
-
-                <div class="float-right">
-                    @if (comment.IsUpdatable)
-                    {
-                        <button class="edit">Edit</button>
-                    }
-
-                    @if (comment.IsDeletable)
-                    {
-                        using (Html.BeginForm("Delete", "Comment", FormMethod.Post, new { @class = "delete" }))
-                        {
-                            @Html.HiddenFor(m => comment.Id)
-                            <input type="submit" value="Delete" />
-                        }
-                    }
-                </div>
-
-                <div class="clear-both"></div>
-            </li>
-        }
+    <ul id="comments-@Model.Comment.Status.Id">
+        @Html.Partial("ListPartial", Model.Comments)
     </ul>
 
-    @using (Html.BeginForm("Create", "Comment", FormMethod.Post, new { @class = "add" }))
-    {
-        @Html.HiddenFor(m => m.Comment.Status.Id)
-        @Html.TextBoxFor(m => m.Comment.Message)
-        <input type="submit" value="Create" />
-    }
+     @Html.Partial("CreatePartial", Model.Comment)
 </section>

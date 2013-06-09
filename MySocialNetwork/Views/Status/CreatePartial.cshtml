@@ -1,0 +1,14 @@
+﻿@model MySocialNetwork.Models.Status
+
+@using (Ajax.BeginForm("Create", "Status", null,
+    new AjaxOptions
+    {
+        HttpMethod = "post",
+        InsertionMode = InsertionMode.InsertBefore,
+        UpdateTargetId = "statuses",
+        OnComplete = "OnComplete"
+    }, new { @class = "create" }))
+{
+    @Html.TextBoxFor(m => m.Message, new { placeholder = "Message" })
+    <input type="submit" value="Create" />
+}

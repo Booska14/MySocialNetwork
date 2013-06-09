@@ -7,7 +7,7 @@
             @Html.DisplayFor(m => user.Name)
             @using (Html.BeginForm("AddToFriends", "User"))
             {
-                <input type="hidden" name="userId" value="@user.Id" />
+                @Html.HiddenFor(m => user.Id)
                 <input type="submit" value="Add" />
             }
         </li>

@@ -1,0 +1,13 @@
+﻿@model MySocialNetwork.Models.Status
+
+@using (Ajax.BeginForm("Delete", "Status", null,
+    new AjaxOptions
+    {
+        HttpMethod = "post",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "statuses"
+    }, new { @class = "delete" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    <input type="submit" value="Delete" />
+}

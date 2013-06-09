@@ -1,0 +1,8 @@
+﻿@model IEnumerable<MySocialNetwork.Models.Comment>
+
+<ul>
+    @foreach (var comment in Model)
+    {
+        @Html.Partial("DetailsPartial", comment)
+    }
+</ul>
