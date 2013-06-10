@@ -13,6 +13,8 @@ namespace MySocialNetwork.Models
         public virtual string LastName { get; set; }
 
         public virtual ICollection<User> Friends { get; set; }
+        public virtual ICollection<Request> SentRequests { get; set; }
+        public virtual ICollection<Request> ReceivedRequests { get; set; }
 
         public string FullName
         {

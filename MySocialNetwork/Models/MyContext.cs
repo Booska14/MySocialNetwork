@@ -16,6 +16,7 @@ namespace MySocialNetwork.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Status> Status { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Request> Requests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
