@@ -3,3 +3,46 @@
 @{
     ViewBag.Title = "Friends";
 }
+
+<h1>Requests</h1>
+
+<ul>
+    @foreach (var request in Model.Requests)
+    {
+        <li>
+            @Html.DisplayFor(m => request.Sender.FullName)
+            @using (Html.BeginForm("AcceptRequest", "Friend"))
+            {
+                @Html.HiddenFor(m => request.Id)
+                <input type="submit" value="Accept" />
+            }
+            @using (Html.BeginForm("DeclineRequest", "Friend"))
+            {
+                @Html.HiddenFor(m => request.Id)
+                <input type="submit" value="Decline" />
+            }
+        </li>
+    }
+</ul>
+
+@using (Html.BeginForm("Search", "Friend"))
+{
+    <input type="text" name="userName" />
+    <input type="submit" value="Search" />
+}
+
+<h1>Users</h1>
+
+<ul>
+    @foreach (var user in Model.Users)
+    {
+        <li>
+            @Html.DisplayFor(m => user.FullName)
+            @using (Html.BeginForm("SendRequest", "Friend"))
+            {
+                @Html.HiddenFor(m => user.Id)
+                <input type="submit" value="Request"/>
+            }
+        </li>
+    }
+</ul>

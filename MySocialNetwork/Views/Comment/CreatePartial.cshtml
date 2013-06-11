@@ -1,13 +1,13 @@
 ﻿@model MySocialNetwork.Models.Comment
 
-@using (Ajax.BeginForm("Create", "Comment", null,
+@using (Ajax.BeginForm("Create", "Comment",
     new AjaxOptions
     {
         HttpMethod = "post",
         InsertionMode = InsertionMode.InsertAfter,
         UpdateTargetId = "comments-" + Model.Status.Id,
         OnComplete = "OnComplete"
-    }, new { @class="create" }))
+    }))
 {
     @Html.HiddenFor(m => m.Status.Id)
     @Html.TextBoxFor(m => m.Message, new { placeholder = "Message" })

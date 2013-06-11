@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
 
@@ -20,23 +21,52 @@ namespace MySocialNetwork.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Friends)
-                .WithMany();
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new StatusConfiguration());
+            modelBuilder.Configurations.Add(new CommentConfiguration());
+        }
+    }
 
-            modelBuilder.Entity<Status>()
-                .Ignore(s => s.IsDeletable);
+    #region Configurations
+    public class UserConfiguration : EntityTypeConfiguration<User>
+    {
+        public UserConfiguration()
+        {
+            HasMany(u => u.Friends)
+                .WithMany()
+                .Map(m =>
+                {
+                    m.ToTable("Friends");
+                    m.MapRightKey("Friend_Id");
+                });
 
-            modelBuilder.Entity<Comment>()
-                .HasRequired(c => c.Status)
+            HasMany(u => u.SentRequests)
+                .WithOptional(r => r.Sender);
+
+            HasMany(u => u.ReceivedRequests)
+                .WithOptional(r => r.Receiver);
+        }
+    }
+
+    public class StatusConfiguration : EntityTypeConfiguration<Status>
+    {
+        public StatusConfiguration()
+        {
+            Ignore(s => s.IsDeletable);
+        }
+    }
+
+    public class CommentConfiguration : EntityTypeConfiguration<Comment>
+    {
+        public CommentConfiguration()
+        {
+            HasRequired(c => c.Status)
                 .WithMany(s => s.Comments)
                 .WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<Comment>()
-                .Ignore(c => c.IsDeletable);
-
-            modelBuilder.Entity<Comment>()
-                .Ignore(c => c.IsUpdatable);
+            Ignore(c => c.IsDeletable);
+            Ignore(c => c.IsUpdatable);
         }
     }
+    #endregion
 }

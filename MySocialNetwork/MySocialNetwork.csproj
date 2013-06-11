@@ -236,7 +236,6 @@
     <Content Include="Views\Shared\MenuPartial.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Status\DetailsPartial.cshtml" />
-    <Content Include="Views\Status\CreatePartial.cshtml" />
     <Content Include="Views\Comment\CreatePartial.cshtml" />
     <Content Include="Views\Comment\DetailsPartial.cshtml" />
     <Content Include="Views\Comment\UpdatePartial.cshtml" />
@@ -245,6 +244,7 @@
     <Content Include="Views\Status\DeletePartial.cshtml" />
     <Content Include="Views\Comment\DeletePartial.cshtml" />
     <Content Include="Views\Request\Index.cshtml" />
+    <Content Include="Views\Status\CreatePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
