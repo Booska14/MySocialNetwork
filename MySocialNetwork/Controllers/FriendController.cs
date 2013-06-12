@@ -143,7 +143,8 @@ namespace MySocialNetwork.Controllers
                 .Where(u => u.Id != currentUser.Id
                     && !friends.Any(f => f == u.Id)
                     && !receivers.Any(s => s == u.Id)
-                    && !senders.Any(r => r == u.Id));
+                    && !senders.Any(r => r == u.Id))
+                .OrderBy(u => u.FullName);
 
             return users;
         }

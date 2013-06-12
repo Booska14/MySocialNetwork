@@ -184,10 +184,8 @@
     <Compile Include="App_Start\WebSecurityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FriendController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,7 +225,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
-    <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\AccountPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -235,22 +232,15 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Friend\Index.cshtml" />
     <Content Include="Views\Shared\MenuPartial.cshtml" />
-    <Content Include="Views\Comment\Index.cshtml" />
-    <Content Include="Views\Status\DetailsPartial.cshtml" />
-    <Content Include="Views\Comment\CreatePartial.cshtml" />
-    <Content Include="Views\Comment\DetailsPartial.cshtml" />
-    <Content Include="Views\Comment\UpdatePartial.cshtml" />
-    <Content Include="Views\Status\ListPartial.cshtml" />
-    <Content Include="Views\Comment\ListPartial.cshtml" />
-    <Content Include="Views\Status\DeletePartial.cshtml" />
-    <Content Include="Views\Comment\DeletePartial.cshtml" />
-    <Content Include="Views\Request\Index.cshtml" />
-    <Content Include="Views\Status\CreatePartial.cshtml" />
     <Content Include="Views\Friend\RequestsPartial.cshtml" />
     <Content Include="Views\Friend\UsersPartial.cshtml" />
     <Content Include="Views\Friend\UserPartial.cshtml" />
     <Content Include="Views\Friend\RequestPartial.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\StatusPartial.cshtml" />
+    <Content Include="Views\News\StatusesPartial.cshtml" />
+    <Content Include="Views\News\CommentPartial.cshtml" />
+    <Content Include="Views\News\CommentsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

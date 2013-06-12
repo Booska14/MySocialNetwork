@@ -114,7 +114,7 @@ namespace MySocialNetwork.Controllers
         #region Helpers
         private ActionResult RedirectToLocal()
         {
-            return RedirectToAction("Index", "Status");
+            return RedirectToAction("Index", "News");
         }
 
         public enum ManageMessageId

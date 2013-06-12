@@ -1,0 +1,55 @@
+﻿@model MySocialNetwork.Models.Status
+
+<li>
+    <div class="float-left">
+        <span class="author">
+            @Html.DisplayFor(m => m.Author.FullName)
+        </span>
+        <span class="datetime">
+            @Html.DisplayFor(m => m.DateTime)
+        </span>
+        <div class="message">
+            @Html.DisplayFor(m => m.Message)
+        </div>
+    </div>
+
+    <div class="float-right">
+        @if (Model.IsDeletable)
+        {
+            @using (Ajax.BeginForm("RemoveStatus", "News", null,
+                new AjaxOptions
+                {
+                    HttpMethod = "post",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "statuses"
+                }, new { @class = "delete" }))
+            {
+                @Html.HiddenFor(m => m.Id)
+                <input type="submit" value="Delete" />
+            }
+        }
+    </div>
+
+    <div class="clear-both"></div>
+
+    <section class="comment">
+        <ul id="comments-@Model.Id">
+            @Html.Partial("CommentsPartial", Model.Comments)
+        </ul>
+
+        @using (Ajax.BeginForm("AddComment",
+            new AjaxOptions
+            {
+                HttpMethod = "post",
+                InsertionMode = InsertionMode.InsertAfter,
+                UpdateTargetId = "comments-" + Model.Id,
+                OnComplete = "OnComplete"
+            }))
+        {
+            @Html.HiddenFor(m => m.Id)
+            <input type="text" name="message" placeholder="Message" />
+            @Html.TextBoxFor(m => m.Message, new { placeholder = "Message" })
+            <input type="submit" value="Create" />
+        }
+    </section>
+</li>

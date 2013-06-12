@@ -1,1 +1,26 @@
-﻿
+﻿@model IEnumerable<MySocialNetwork.Models.Status>
+
+@{
+    ViewBag.Title = "News";
+}
+
+<h1>News feed</h1>
+
+<section id="status">
+    @using (Ajax.BeginForm("AddStatus",
+    new AjaxOptions
+    {
+        HttpMethod = "post",
+        InsertionMode = InsertionMode.InsertBefore,
+        UpdateTargetId = "statuses",
+        OnComplete = "OnComplete"
+    }))
+    {
+        <input type="text" name="message" placeholder="Message" />
+        <input type="submit" value="Create" />
+    }
+
+    <ul id="statuses">
+        @Html.Partial("StatusesPartial", Model)
+    </ul>
+</section>

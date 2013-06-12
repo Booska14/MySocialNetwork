@@ -1,9 +1,0 @@
-﻿@model MySocialNetwork.ViewModels.CommentViewModel
-
-<section class="comment">
-    <ul id="comments-@Model.Comment.Status.Id">
-        @Html.Partial("ListPartial", Model.Comments)
-    </ul>
-
-     @Html.Partial("CreatePartial", Model.Comment)
-</section>
