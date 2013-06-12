@@ -16,8 +16,8 @@ namespace MySocialNetwork.Controllers
 
         public ActionResult Index()
         {
-            var requests = GetRequests();
-            var users = GetUsers();
+            var requests = Requests();
+            var users = Users();
 
             var viewModel = new FriendViewModel
             {
@@ -29,26 +29,76 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult AcceptRequest(Request request)
+        public ActionResult AcceptRequest(Request model)
         {
-            return null;
+            var request = context.Requests
+                .Find(model.Id);
+
+            var sender = request.Sender;
+            var receiver = request.Receiver;
+
+            request.Status = RequestStatus.Accepted;
+            request.StatusDateTime = DateTime.Now;
+
+            sender.Friends.Add(receiver);
+            receiver.Friends.Add(sender);
+
+            context.SaveChanges();
+
+            var requests = Requests();
+
+            return PartialView("RequestsPartial", requests);
         }
 
         [HttpPost]
-        public ActionResult DeclineRequest(Request request)
+        public ActionResult DeclineRequest(Request model)
         {
-            return null;
+            var request = context.Requests
+                .Find(model.Id);
+
+            request.Status = RequestStatus.Declined;
+            request.StatusDateTime = DateTime.Now;
+
+            context.SaveChanges();
+
+            var requests = Requests();
+
+            return PartialView("RequestsPartial", requests);
         }
 
-        public ActionResult Search(string userName)
+        public ActionResult Search(string name)
         {
-            return null;
+            var currentUser = context.Users
+                .Find(WebSecurity.CurrentUserId);
+
+            var users = UsersByName(name);
+
+            return PartialView("UsersPartial", users);
         }
 
         [HttpPost]
-        public ActionResult SendRequest(User user)
+        public ActionResult SendRequest(User model)
         {
-            return null;
+            var currentUser = context.Users
+                .Find(WebSecurity.CurrentUserId);
+
+            var user = context.Users
+                .Find(model.Id);
+
+            var request = new Request
+            {
+                Sender = currentUser,
+                Receiver = user,
+                DateTime = DateTime.Now,
+                StatusDateTime = DateTime.Now
+            };
+
+            context.Requests.Add(request);
+            context.SaveChanges();
+
+            var users = Users();
+
+            return PartialView("UsersPartial", users);
         }
 
         protected override void Dispose(bool disposing)
@@ -58,9 +108,12 @@ namespace MySocialNetwork.Controllers
         }
 
         #region Helpers
-        private IQueryable<Request> GetRequests()
+        private IQueryable<Request> Requests()
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var currentUser = context.Users
+                .Find(WebSecurity.CurrentUserId);
+
+            // Requests I have received and which are pending
             var requests = context.Requests
                 .Where(r => r.Receiver.Id == currentUser.Id
                     && r.Status == RequestStatus.Pending);
@@ -68,11 +121,37 @@ namespace MySocialNetwork.Controllers
             return requests;
         }
 
-        private IQueryable<User> GetUsers()
+        private IQueryable<User> Users()
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var currentUser = context.Users
+                .Find(WebSecurity.CurrentUserId);
+
+            var friends = currentUser.Friends
+                .Select(f => f.Id);
+
+            var receivers = context.Requests
+                .Where(r => r.Sender.Id == currentUser.Id)
+                .Select(r => r.Receiver.Id);
+
+            var senders = context.Requests
+                .Where(r => r.Receiver.Id == currentUser.Id)
+                .Select(r => r.Sender.Id);
+
+            // Users who are not me, not part of my friends,
+            // who I haven't sent a request to and who haven't sent me a request
             var users = context.Users
-                .Where(u => u.Id != currentUser.Id);
+                .Where(u => u.Id != currentUser.Id
+                    && !friends.Any(f => f == u.Id)
+                    && !receivers.Any(s => s == u.Id)
+                    && !senders.Any(r => r == u.Id));
+
+            return users;
+        }
+
+        private IQueryable<User> UsersByName(string name)
+        {
+            var users = Users()
+                .Where(u => u.FullName.Contains(name));
 
             return users;
         }

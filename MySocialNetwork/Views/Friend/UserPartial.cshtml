@@ -1,0 +1,17 @@
+﻿@model MySocialNetwork.Models.User
+
+<li>
+    @Html.DisplayFor(m => m.FullName)
+
+    @using (Ajax.BeginForm("SendRequest",
+        new AjaxOptions
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "users"
+        }))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <input type="submit" value="Send" />
+    }
+</li>

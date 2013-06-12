@@ -1,0 +1,6 @@
+﻿@model IEnumerable<MySocialNetwork.Models.Request>
+
+@foreach (var request in Model)
+{
+    @Html.Partial("RequestPartial", request)
+}

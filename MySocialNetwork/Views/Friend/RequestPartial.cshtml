@@ -1,0 +1,29 @@
+﻿@model MySocialNetwork.Models.Request
+
+<li>
+    @Html.DisplayFor(m => m.Sender.FullName)
+
+    @using (Ajax.BeginForm("AcceptRequest",
+        new AjaxOptions
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "requests"
+        }))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <input type="submit" value="Accept" />
+    }
+
+    @using (Ajax.BeginForm("Decline",
+        new AjaxOptions
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "requests"
+        }))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <input type="submit" value="Decline" />
+    }
+</li>
