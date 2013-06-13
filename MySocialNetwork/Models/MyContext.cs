@@ -18,6 +18,7 @@ namespace MySocialNetwork.Models
         public DbSet<Status> Status { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -41,10 +42,20 @@ namespace MySocialNetwork.Models
                 });
 
             HasMany(u => u.SentRequests)
-                .WithOptional(r => r.Sender);
+                .WithRequired(r => r.Sender)
+                .WillCascadeOnDelete(false);
 
             HasMany(u => u.ReceivedRequests)
-                .WithOptional(r => r.Receiver);
+                .WithRequired(r => r.Receiver)
+                .WillCascadeOnDelete(false);
+
+            HasMany(u => u.SentMessages)
+                .WithRequired(m => m.Sender)
+                .WillCascadeOnDelete(false);
+
+            HasMany(u => u.ReceivedMessages)
+                .WithRequired(m => m.Receiver)
+                .WillCascadeOnDelete(false);
         }
     }
 
@@ -60,9 +71,9 @@ namespace MySocialNetwork.Models
     {
         public CommentConfiguration()
         {
-            HasRequired(c => c.Status)
-                .WithMany(s => s.Comments)
-                .WillCascadeOnDelete(true);
+            //HasRequired(c => c.Status)
+            //    .WithMany(s => s.Comments)
+            //    .WillCascadeOnDelete(true);
 
             Ignore(c => c.IsDeletable);
             Ignore(c => c.IsUpdatable);

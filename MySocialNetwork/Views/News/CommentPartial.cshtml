@@ -8,8 +8,8 @@
         <span class="datetime">
             @Html.DisplayFor(m => m.DateTime)
         </span>
-        <div class="message">
-            @Html.DisplayFor(m => m.Message)
+        <div class="text">
+            @Html.DisplayFor(m => m.Text)
         </div>
 
         @using (Ajax.BeginForm("UpdateComment", "News", null,
@@ -22,7 +22,7 @@
             }, new { @class = "update" }))
         {
             @Html.HiddenFor(m => m.Id)
-            @Html.TextBoxFor(m => m.Message)
+            @Html.TextBoxFor(m => m.Text)
             <input type="submit" value="Update" />
         }
     </div>
@@ -35,7 +35,7 @@
 
         @if (Model.IsDeletable)
         {
-            @using (Ajax.BeginForm("RemoveComment", "News", null,
+            using (Ajax.BeginForm("RemoveComment", "News", null,
                 new AjaxOptions
                 {
                     HttpMethod = "post",

@@ -9,6 +9,6 @@
     });
 });
 
-function OnComplete() {
-    $("input").filter("#Message[placeholder]").val("");
+function OnFormComplete() {
+    $("input").filter("[name=text]").val("");
 }

@@ -31,9 +31,7 @@ namespace MySocialNetwork.Controllers
         [HttpPost]
         public ActionResult AcceptRequest(Request model)
         {
-            var request = context.Requests
-                .Find(model.Id);
-
+            var request = context.Requests.Find(model.Id);
             var sender = request.Sender;
             var receiver = request.Receiver;
 
@@ -53,8 +51,7 @@ namespace MySocialNetwork.Controllers
         [HttpPost]
         public ActionResult DeclineRequest(Request model)
         {
-            var request = context.Requests
-                .Find(model.Id);
+            var request = context.Requests.Find(model.Id);
 
             request.Status = RequestStatus.Declined;
             request.StatusDateTime = DateTime.Now;
@@ -66,12 +63,11 @@ namespace MySocialNetwork.Controllers
             return PartialView("RequestsPartial", requests);
         }
 
-        public ActionResult Search(string name)
+        public ActionResult Search(string text)
         {
-            var currentUser = context.Users
-                .Find(WebSecurity.CurrentUserId);
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
 
-            var users = UsersByName(name);
+            var users = UsersByName(text);
 
             return PartialView("UsersPartial", users);
         }
@@ -79,11 +75,8 @@ namespace MySocialNetwork.Controllers
         [HttpPost]
         public ActionResult SendRequest(User model)
         {
-            var currentUser = context.Users
-                .Find(WebSecurity.CurrentUserId);
-
-            var user = context.Users
-                .Find(model.Id);
+            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
+            var user = context.Users.Find(model.Id);
 
             var request = new Request
             {
@@ -144,7 +137,8 @@ namespace MySocialNetwork.Controllers
                     && !friends.Any(f => f == u.Id)
                     && !receivers.Any(s => s == u.Id)
                     && !senders.Any(r => r == u.Id))
-                .OrderBy(u => u.FullName);
+                .OrderBy(u => u.FirstName)
+                .ThenBy(u => u.LastName);
 
             return users;
         }

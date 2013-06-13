@@ -8,6 +8,7 @@ using WebMatrix.WebData;
 
 namespace MySocialNetwork.Controllers
 {
+    [Authorize]
     public class NewsController : Controller, IDisposable
     {
         private MyContext context;
@@ -25,7 +26,7 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddStatus(string message)
+        public ActionResult AddStatus(string text)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
 
@@ -33,13 +34,14 @@ namespace MySocialNetwork.Controllers
             {
                 Author = currentUser,
                 DateTime = DateTime.Now,
-                Message = message,
+                Text = text,
                 IsDeletable = true
             };
 
             context.Status.Add(status);
             context.SaveChanges();
 
+            ModelState.Clear();
             return PartialView("StatusPartial", status);
         }
 
@@ -55,22 +57,21 @@ namespace MySocialNetwork.Controllers
             var statuses = Statuses();
 
             ModelState.Clear();
-
             return PartialView("StatusesPartial", statuses);
         }
 
         [HttpPost]
-        public ActionResult AddCommentToStatus(int statusId, string message)
+        public ActionResult AddComment(int id, string text)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-            var status = context.Status.Find(statusId);
+            var status = context.Status.Find(id);
 
             var comment = new Comment
             {
                 Status = status,
                 Author = currentUser,
                 DateTime = DateTime.Now,
-                Message = message,
+                Text = text,
                 IsDeletable = true,
                 IsUpdatable = true
             };
@@ -78,6 +79,7 @@ namespace MySocialNetwork.Controllers
             context.Comments.Add(comment);
             context.SaveChanges();
 
+            ModelState.Clear();
             return PartialView("CommentPartial", comment);
         }
 
@@ -85,13 +87,13 @@ namespace MySocialNetwork.Controllers
         public ActionResult UpdateComment(Comment model)
         {
             var comment = context.Comments.Find(model.Id);
-            var status = context.Status.Find(comment.Status.Id);
+            comment.Text = model.Text;
 
-            context.Comments.Remove(comment);
             context.SaveChanges();
 
-            var comments = CommentsByStatus(status);
+            var comments = CommentsByStatus(comment.Status);
 
+            ModelState.Clear();
             return PartialView("CommentsPartial", comments);
         }
 
@@ -106,6 +108,7 @@ namespace MySocialNetwork.Controllers
 
             var comments = CommentsByStatus(status);
 
+            ModelState.Clear();
             return PartialView("CommentsPartial", comments);
         }
 

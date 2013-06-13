@@ -4,26 +4,33 @@
     ViewBag.Title = "Friends";
 }
 
-<h1>Requests</h1>
+<section class="request">
+    @if (Model.Requests.Any())
+    {
+        <h1>Requests</h1>
+    }
 
-<ul id="requests">
-    @Html.Partial("RequestsPartial", Model.Requests)
-</ul>
+    <ul id="requests">
+        @Html.Partial("RequestsPartial", Model.Requests)
+    </ul>
+</section>
 
-@using (Ajax.BeginForm("Search",
+<section class="user">
+    <h1>Users</h1>
+
+    @using (Ajax.BeginForm("Search",
     new AjaxOptions
     {
         HttpMethod = "post",
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "users"
     }))
-{
-    <input type="text" name="name" />
-    <input type="submit" value="Search" />
-}
+    {
+        <input type="text" name="text" placeholder="Text" />
+        <input type="submit" value="Search" />
+    }
 
-<h1>Users</h1>
-
-<ul id="users">
-    @Html.Partial("UsersPartial", Model.Users)
-</ul>
+    <ul id="users">
+        @Html.Partial("UsersPartial", Model.Users)
+    </ul>
+</section>

@@ -8,7 +8,7 @@ namespace MySocialNetwork.Models
     public class Comment
     {
         public int Id { get; set; }
-        public virtual string Message { get; set; }
+        public virtual string Text { get; set; }
         public virtual DateTime DateTime { get; set; }
 
         public virtual User Author { get; set; }

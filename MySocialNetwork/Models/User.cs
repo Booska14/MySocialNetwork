@@ -15,6 +15,8 @@ namespace MySocialNetwork.Models
         public virtual ICollection<User> Friends { get; set; }
         public virtual ICollection<Request> SentRequests { get; set; }
         public virtual ICollection<Request> ReceivedRequests { get; set; }
+        public virtual ICollection<Message> SentMessages { get; set; }
+        public virtual ICollection<Message> ReceivedMessages { get; set; }
 
         public string FullName
         {

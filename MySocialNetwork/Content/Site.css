@@ -221,70 +221,65 @@ button {
     margin-top: 12px;
 }
 
-/* status */
+/* news */
 
-#status > form {
-    width: 100%;
+.status form {
     margin-bottom: 24px;
 }
 
-    #status > form > input[type=text],
-    #status > ul > li > div > form > input[type=text] {
-        width: 440px;
-    }
+.status input[type=text] {
+    width: 762px;
+}
 
-#status > ul > li {
+.status li {
     border-top: 1px solid #d0d0d0;
     padding: 12px 0;
 }
 
-    #status > ul > li#first {
-        border-top: 0px;
-        padding: 0px;
-    }
-
-    #status > ul > li > div > .message {
-        max-width: 440px;
-    }
-
-/* comment */
-
-.comment {
-    margin-left: 36px;
-    margin-top: 12px;
+.status li:last-child {
+    padding-bottom: 0;
 }
 
-    .comment li {
-        margin-bottom: 6px;
-    }
+.status .text {
+    max-width: 440px;
+}
 
-        .comment li:last-child {
-            margin-bottom: 12px;
-        }
-
-    .comment .message {
-        max-width: 404px;
-    }
-
-    .comment input[type=text] {
-        width: 220px;
-    }
-
-    .comment .delete,
-    .comment .edit {
-        display: inline-block;
-    }
-
-.author {
+.status .author {
     font-size: 1.25em;
     font-weight: bold;
 }
 
-.datetime {
+.status .datetime {
     font-size: 0.75em;
     font-style: italic;
 }
 
-.update {
+.status .update {
     display: none;
 }
+
+.status .comment {
+    margin-left: 36px;
+    margin-top: 12px;
+}
+
+    .status .comment li {
+        margin-bottom: 6px;
+    }
+
+    .status .comment form {
+        margin-bottom: 0;
+    }
+
+    .status .comment .text {
+        max-width: 404px;
+    }
+
+    .status .comment input[type=text] {
+        width: 220px;
+    }
+
+    .status .comment .delete,
+    .status .comment .edit {
+        display: inline-block;
+    }
