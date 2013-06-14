@@ -51,6 +51,12 @@ namespace MySocialNetwork.Controllers
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var status = context.Status.Find(model.Id);
 
+            //Could be done with delete on cascade
+            foreach (var comment in status.Comments)
+            {
+                context.Comments.Remove(comment);
+            }
+
             context.Status.Remove(status);
             context.SaveChanges();
 

@@ -1,18 +1,19 @@
 ﻿@model MySocialNetwork.Models.Comment
 
 <li>
-    <div class="float-left">
-        <span class="author">
-            @Html.DisplayFor(m => m.Author.FullName)
-        </span>
-        <span class="datetime">
-            @Html.DisplayFor(m => m.DateTime)
-        </span>
-        <div class="text">
-            @Html.DisplayFor(m => m.Text)
-        </div>
+    <span class="author">
+        @Html.DisplayFor(m => m.Author.FullName)
+    </span>
+    <span class="datetime">
+        @Html.DisplayFor(m => m.DateTime)
+    </span>
+    <div class="overflow-hidden">
+        <div class="float-left">
+            <div class="text">
+                @Html.DisplayFor(m => m.Text)
+            </div>
 
-        @using (Ajax.BeginForm("UpdateComment", "News", null,
+            @using (Ajax.BeginForm("UpdateComment", "News", null,
             new AjaxOptions
             {
                 HttpMethod = "post",
@@ -20,33 +21,34 @@
                 UpdateTargetId = "comments-" + Model.Status.Id,
                 OnComplete = "OnComplete"
             }, new { @class = "update" }))
-        {
-            @Html.HiddenFor(m => m.Id)
-            @Html.TextBoxFor(m => m.Text)
-            <input type="submit" value="Update" />
-        }
-    </div>
-
-    <div class="float-right">
-        @if (Model.IsUpdatable)
-        {
-            <button class="edit">Edit</button>
-        }
-
-        @if (Model.IsDeletable)
-        {
-            using (Ajax.BeginForm("RemoveComment", "News", null,
-                new AjaxOptions
-                {
-                    HttpMethod = "post",
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "comments-" + Model.Status.Id
-                }, new { @class = "delete" }))
             {
                 @Html.HiddenFor(m => m.Id)
-                <input type="submit" value="Delete" />
+                @Html.TextBoxFor(m => m.Text)
+                <input type="submit" value="Update" />
             }
-        }
+        </div>
+
+        <div class="float-right">
+            @if (Model.IsUpdatable)
+            {
+                <button class="edit">Edit</button>
+            }
+
+            @if (Model.IsDeletable)
+            {
+                using (Ajax.BeginForm("RemoveComment", "News", null,
+                    new AjaxOptions
+                    {
+                        HttpMethod = "post",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "comments-" + Model.Status.Id
+                    }, new { @class = "delete" }))
+                {
+                    @Html.HiddenFor(m => m.Id)
+                    <input type="submit" value="Delete" />
+                }
+            }
+        </div>
     </div>
 
     <div class="clear-both"></div>

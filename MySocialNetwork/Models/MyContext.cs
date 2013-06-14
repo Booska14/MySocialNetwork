@@ -63,6 +63,9 @@ namespace MySocialNetwork.Models
     {
         public StatusConfiguration()
         {
+            //HasMany(s => s.Comments)
+            //    .WithRequired(c => c.Status);
+
             Ignore(s => s.IsDeletable);
         }
     }
@@ -71,8 +74,9 @@ namespace MySocialNetwork.Models
     {
         public CommentConfiguration()
         {
-            HasRequired(c => c.Status)
-                .WithMany(s => s.Comments);
+            //HasRequired(c => c.Status)
+            //    .WithMany(s => s.Comments)
+            //    .WillCascadeOnDelete(true);
 
             Ignore(c => c.IsDeletable);
             Ignore(c => c.IsUpdatable);

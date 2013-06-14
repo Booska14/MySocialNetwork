@@ -31,13 +31,12 @@ p {
 }
 
 .container {
-    box-sizing: border-box;
     margin: 0 auto;
     overflow: hidden;
     width: 880px;
 }
 
-.float-container {
+.overflow-hidden {
     overflow: hidden;
 }
 
@@ -61,7 +60,6 @@ p {
 
 .banner {
     background: #2d2d30;
-    border-bottom: 1px solid #171717;
     overflow: hidden;
 }
 
@@ -106,7 +104,6 @@ p {
 
 .menu {
     background: #3b5998;
-    border-bottom: 1px solid #133783;
 }
 
     .menu nav {
@@ -141,11 +138,10 @@ p {
 #body .container {
     background: #efeff2;
     border-bottom: 1px solid #d0d0d0;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
     border-left: 1px solid #d0d0d0;
     border-right: 1px solid #d0d0d0;
     padding: 24px;
+    width: 830px;
 }
 
 /* footer */
@@ -156,39 +152,38 @@ footer p {
 
 /* input */
 
-input,
-button {
-    border-radius: 5px;
+input[type=text],
+input[type=password] {
+    border: 1px solid #d0d0d0;
+    height: 30px;
+    padding: 0 12px;
 }
 
-    input[type=text],
-    input[type=password] {
-        border: 1px solid #d0d0d0;
-        box-sizing: border-box;
-        height: 32px;
-        padding: 0 12px;
+input[type=checkbox] {
+    vertical-align: middle;
+}
+
+input[type=submit],
+button {
+    background: #2d2d30;
+    border: 1px solid #171717;
+    color: #d0d0d0;
+    cursor: pointer;
+    height: 32px;
+    padding: 0 12px;
+}
+
+    input[type=submit]:hover,
+    button:hover {
+        background: #3e3e40;
+        border-color: #2d2d30;
+        color: #fff;
     }
 
-    input[type=checkbox] {
-        vertical-align: middle;
+    input[type=submit]:active {
+        background: #171717;
     }
 
-    input[type=submit],
-    button {
-        background: #2d2d30;
-        border: 1px solid #171717;
-        color: #d0d0d0;
-        cursor: pointer;
-        height: 32px;
-        padding: 0 12px;
-    }
-
-        input[type=submit]:hover,
-        button:hover {
-            background: #3e3e40;
-            border-color: #2d2d30;
-            color: #fff;
-        }
 
 .input-validation-error {
     border-color: #a4373a !important;
@@ -224,7 +219,12 @@ button {
 /* news */
 
 .status input[type=text] {
-    width: 762px;
+    width: 552px;
+}
+
+.status input[type=submit],
+button {
+    width: 80px;
 }
 
 .status ul {
@@ -232,13 +232,13 @@ button {
 }
 
 .status li {
-    border-top: 1px solid  #d0d0d0;
+    border-top: 1px solid #d0d0d0;
     padding: 18px 0;
 }
 
-.status li:last-child {
-    padding-bottom: 0;
-}
+    .status li:last-child {
+        padding-bottom: 0;
+    }
 
 .status .author {
     font-size: 1.25em;
@@ -252,10 +252,7 @@ button {
 
 .status .text {
     max-width: 600px;
-}
-
-.status .update {
-    display: none;
+    min-height: 32px;
 }
 
 .status .comment {
@@ -268,13 +265,18 @@ button {
 
     .status .comment li {
         border-top: 0;
-        padding-bottom: 0;
-        padding-top: 12px;
+        padding: 0;
     }
 
-    .status .comment li form {
-        margin-top: 0;
-    }
+        .status .comment li:hover {
+            box-shadow: -1px 0px 0 0 #d0d0d0;
+            margin-left: -8px;
+            padding-left: 8px;
+        }
+
+        .status .comment li form {
+            margin-top: 0;
+        }
 
     .status .comment .text {
         max-width: 564px;
@@ -285,10 +287,16 @@ button {
     }
 
     .status .comment input[type=text] {
-        width: 726px;
+        width: 516px;
+    }
+
+    .status .comment .update input[type=text] {
+        margin-top: 0;
+        width: 516px;
     }
 
     .status .comment .delete,
     .status .comment .edit {
         display: inline-block;
+        vertical-align: bottom;
     }
