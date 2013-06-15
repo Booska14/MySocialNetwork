@@ -19,7 +19,7 @@
                 HttpMethod = "post",
                 InsertionMode = InsertionMode.Replace,
                 UpdateTargetId = "comments-" + Model.Status.Id,
-                OnComplete = "OnComplete"
+                OnComplete = "onUpdateCommentComplete('#comment-" + @Model.Status.Id + "')"
             }, new { @class = "update" }))
             {
                 @Html.HiddenFor(m => m.Id)
@@ -41,7 +41,8 @@
                     {
                         HttpMethod = "post",
                         InsertionMode = InsertionMode.Replace,
-                        UpdateTargetId = "comments-" + Model.Status.Id
+                        UpdateTargetId = "comments-" + Model.Status.Id,
+                        OnComplete = "onRemoveCommentComplete('#comment-" + @Model.Status.Id + "')"
                     }, new { @class = "delete" }))
                 {
                     @Html.HiddenFor(m => m.Id)

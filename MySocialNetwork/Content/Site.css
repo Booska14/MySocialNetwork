@@ -290,6 +290,10 @@ button {
         width: 516px;
     }
 
+    .status .comment .update {
+        display: none;
+    }
+
     .status .comment .update input[type=text] {
         margin-top: 0;
         width: 516px;

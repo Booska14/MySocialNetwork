@@ -52,10 +52,7 @@ namespace MySocialNetwork.Controllers
             var status = context.Status.Find(model.Id);
 
             //Could be done with delete on cascade
-            foreach (var comment in status.Comments)
-            {
-                context.Comments.Remove(comment);
-            }
+            status.Comments.ToList().ForEach(c => context.Comments.Remove(c));
 
             context.Status.Remove(status);
             context.SaveChanges();

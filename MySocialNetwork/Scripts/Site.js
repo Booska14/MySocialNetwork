@@ -1,22 +1,18 @@
 ﻿$(document).ready(function () {
-    var status = $(".status");
-    status.find(".update").hide();
-    status.find(".edit").hide();
-    status.find(".delete").hide();
+    $(".status").find(".edit").hide();
+    $(".status").find(".delete").hide();
 
     $(".comment").on("click", "button", function () {
-        var comment = $(this).closest("li");
-
-        comment.find(".text").first().toggle();
-        comment.find(".update").first().toggle();
+        $(this).closest("li").find(".text").first().toggle();
+        $(this).closest("li").find(".update").first().toggle();
     });
 
-    $(".comment").on("mouseenter", "li", function () {
+    $(".status").on("mouseenter", ".comment li", function () {
         $(this).find(".edit").show();
         $(this).find(".delete").show();
     });
 
-    $(".comment").on("mouseleave", "li", function () {
+    $(".status").on("mouseleave", ".comment li", function () {
         $(this).find(".edit").hide();
         $(this).find(".delete").hide();
     });
@@ -30,6 +26,30 @@
     });
 });
 
-function OnFormComplete() {
-    $("input").filter("[name=text]").val("");
+function onAddStatusComplete() {
+    $("input").first().val("");
+    $(".status").find(".delete").first().hide();
+}
+
+function onRemoveStatusComplete() {
+    var status = $(".status");
+
+    status.find(".edit").hide();
+    status.find(".delete").hide();
+}
+
+function onUpdateCommentComplete(sectionId) {
+    $(sectionId).find(".edit").hide();
+    $(sectionId).find(".delete").hide();
+}
+
+function onRemoveCommentComplete(sectionId) {
+    $(sectionId).find(".edit").hide();
+    $(sectionId).find(".delete").hide();
+}
+
+function onAddCommentComplete(sectionId) {
+    $(sectionId).find("input").filter("[type=text]").last().val("");
+    $(sectionId).find(".edit").last().hide();
+    $(sectionId).find(".delete").last().hide();
 }

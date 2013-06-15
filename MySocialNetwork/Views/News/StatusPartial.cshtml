@@ -22,7 +22,8 @@
                 {
                     HttpMethod = "post",
                     InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "statuses"
+                    UpdateTargetId = "statuses",
+                    OnComplete = "onRemoveStatusComplete"
                 }, new { @class = "delete" }))
             {
                 @Html.HiddenFor(m => m.Id)
@@ -33,7 +34,7 @@
 
     <div class="clear-both"></div>
 
-    <section class="comment">
+    <section id="comment-@Model.Id" class="comment">
         <ul id="comments-@Model.Id">
             @Html.Partial("CommentsPartial", Model.Comments)
         </ul>
@@ -44,7 +45,7 @@
                 HttpMethod = "post",
                 InsertionMode = InsertionMode.InsertAfter,
                 UpdateTargetId = "comments-" + Model.Id,
-                OnComplete = "OnFormComplete"
+                OnComplete = "onAddCommentComplete('#comment-" + @Model.Id + "')"
             }))
         {
             @Html.HiddenFor(m => m.Id)
