@@ -9,12 +9,15 @@ namespace MySocialNetwork
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.unobtrusive*",
-                        "~/Scripts/jquery.validate*",
-                        "~/Scripts/Site.js"));
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery.unobtrusive*",
+                "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                "~/Scripts/news.js"));
+
+            bundles.Add(new StyleBundle("~/Content/styles").Include(
+                "~/Content/site.css"));
         }
     }
 }

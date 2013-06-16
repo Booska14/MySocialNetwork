@@ -12,10 +12,12 @@ namespace MySocialNetwork.Controllers
     public class NewsController : Controller, IDisposable
     {
         private MyContext context;
+        private User currentUser;
 
         public NewsController()
         {
             context = new MyContext();
+            currentUser = context.Users.Find(WebSecurity.CurrentUserId);
         }
 
         public ActionResult Index()
@@ -28,8 +30,6 @@ namespace MySocialNetwork.Controllers
         [HttpPost]
         public ActionResult AddStatus(string text)
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-
             var status = new Status
             {
                 Author = currentUser,
@@ -48,14 +48,15 @@ namespace MySocialNetwork.Controllers
         [HttpPost]
         public ActionResult RemoveStatus(Status model)
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var status = context.Status.Find(model.Id);
 
-            //Could be done with delete on cascade
-            status.Comments.ToList().ForEach(c => context.Comments.Remove(c));
+            if (currentUser.CanDelete(status))
+            {
+                status.Comments.ToList().ForEach(c => context.Comments.Remove(c));
 
-            context.Status.Remove(status);
-            context.SaveChanges();
+                context.Status.Remove(status);
+                context.SaveChanges();
+            }
 
             var statuses = Statuses();
 
@@ -66,21 +67,24 @@ namespace MySocialNetwork.Controllers
         [HttpPost]
         public ActionResult AddComment(int id, string text)
         {
-            var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
             var status = context.Status.Find(id);
+            Comment comment = null;
 
-            var comment = new Comment
+            if (currentUser.CanCreate(status))
             {
-                Status = status,
-                Author = currentUser,
-                DateTime = DateTime.Now,
-                Text = text,
-                IsDeletable = true,
-                IsUpdatable = true
-            };
+                comment = new Comment
+                {
+                    Status = status,
+                    Author = currentUser,
+                    DateTime = DateTime.Now,
+                    Text = text,
+                    IsDeletable = true,
+                    IsUpdatable = true
+                };
 
-            context.Comments.Add(comment);
-            context.SaveChanges();
+                context.Comments.Add(comment);
+                context.SaveChanges();
+            }
 
             ModelState.Clear();
             return PartialView("CommentPartial", comment);
@@ -90,9 +94,13 @@ namespace MySocialNetwork.Controllers
         public ActionResult UpdateComment(Comment model)
         {
             var comment = context.Comments.Find(model.Id);
-            comment.Text = model.Text;
 
-            context.SaveChanges();
+            if (currentUser.CanUpdate(comment))
+            {
+                comment.Text = model.Text;
+
+                context.SaveChanges();
+            }
 
             var comments = CommentsByStatus(comment.Status);
 
@@ -106,8 +114,11 @@ namespace MySocialNetwork.Controllers
             var comment = context.Comments.Find(model.Id);
             var status = context.Status.Find(comment.Status.Id);
 
-            context.Comments.Remove(comment);
-            context.SaveChanges();
+            if (currentUser.CanDelete(comment))
+            {
+                context.Comments.Remove(comment);
+                context.SaveChanges();
+            }
 
             var comments = CommentsByStatus(status);
 
@@ -137,12 +148,12 @@ namespace MySocialNetwork.Controllers
 
             foreach (var status in statuses)
             {
-                status.IsDeletable = currentUser == status.Author;
+                status.IsDeletable = currentUser.CanDelete(status);
 
                 foreach (var comment in status.Comments)
                 {
-                    comment.IsDeletable = currentUser.Id == comment.Author.Id || currentUser.Id == status.Author.Id;
-                    comment.IsUpdatable = currentUser.Id == comment.Author.Id;
+                    comment.IsUpdatable = currentUser.CanUpdate(comment);
+                    comment.IsDeletable = currentUser.CanDelete(comment);
                 }
             }
 
@@ -159,8 +170,8 @@ namespace MySocialNetwork.Controllers
 
             foreach (var comment in comments)
             {
-                comment.IsDeletable = currentUser.Id == comment.Author.Id || currentUser.Id == status.Author.Id;
-                comment.IsUpdatable = currentUser.Id == comment.Author.Id;
+                comment.IsUpdatable = currentUser.CanUpdate(comment);
+                comment.IsDeletable = currentUser.CanDelete(comment);
             }
 
             return comments;

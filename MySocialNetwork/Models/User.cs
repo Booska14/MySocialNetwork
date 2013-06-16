@@ -25,5 +25,25 @@ namespace MySocialNetwork.Models
                 return FirstName + " " + LastName;
             }
         }
+
+        public bool CanCreate(Status status)
+        {
+            return Id == status.Author.Id || Friends.Any(f => f.Id == status.Author.Id);
+        }
+
+        public bool CanUpdate(Comment comment)
+        {
+            return Id == comment.Author.Id;
+        }
+
+        public bool CanDelete(Status status)
+        {
+            return Id == status.Author.Id;
+        }
+
+        public bool CanDelete(Comment comment)
+        {
+            return Id == comment.Author.Id || Id == comment.Status.Author.Id;
+        }
     }
 }

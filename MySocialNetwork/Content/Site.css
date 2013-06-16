@@ -219,7 +219,7 @@ button {
 /* news */
 
 .status input[type=text] {
-    width: 552px;
+    width: 576px;
 }
 
 .status input[type=submit],
@@ -287,7 +287,7 @@ button {
     }
 
     .status .comment input[type=text] {
-        width: 516px;
+        width: 540px;
     }
 
     .status .comment .update {
@@ -296,7 +296,7 @@ button {
 
     .status .comment .update input[type=text] {
         margin-top: 0;
-        width: 516px;
+        width: 540px;
     }
 
     .status .comment .delete,

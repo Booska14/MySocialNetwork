@@ -21,7 +21,7 @@ namespace MySocialNetwork.Controllers
             return View();
         }
 
-        void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             context.Dispose();
             base.Dispose(disposing);
