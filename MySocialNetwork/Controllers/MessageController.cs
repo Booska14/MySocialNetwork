@@ -2,7 +2,9 @@
 using MySocialNetwork.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
@@ -56,15 +58,15 @@ namespace MySocialNetwork.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendMessage(User model, string text)
+        public ActionResult SendMessage(User friend, string text)
         {
             var currentUser = context.Users.Find(WebSecurity.CurrentUserId);
-            var friend = context.Users.Find(model.Id);
+            var user = context.Users.Find(friend.Id);
 
             var message = new Message
             {
                 Sender = currentUser,
-                Receiver = friend,
+                Receiver = user,
                 Text = text,
                 DateTime = DateTime.Now
             };
