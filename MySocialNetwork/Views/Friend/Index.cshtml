@@ -5,10 +5,7 @@
 }
 
 <section class="request">
-    @if (Model.Requests.Any())
-    {
-        <h1>Requests</h1>
-    }
+    <h1>Requests</h1>
 
     <ul id="requests">
         @Html.Partial("RequestsPartial", Model.Requests)

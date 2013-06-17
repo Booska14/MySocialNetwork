@@ -1,5 +1,47 @@
-﻿@{
+﻿@model MySocialNetwork.ViewModels.MessageViewModel
+
+@{
     ViewBag.Title = "Messages";
 }
 
+<h1>Friends</h1>
+
+<ul>
+    @foreach (var friend in Model.Friends)
+    {
+        <li>
+            @Html.DisplayFor(m => friend.FullName)
+
+            @using (Ajax.BeginForm("SelectFriend", "Message",
+                new AjaxOptions
+                {
+                    HttpMethod = "post",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "messages",
+                }))
+            {
+                @Html.HiddenFor(m => friend.Id)
+                <input type="submit" value="Select" />
+            }
+        </li>
+    }
+</ul>
+
 <h1>Messages</h1>
+
+<ul>
+    @Html.Partial("MessagesPartial", Model.Messages)
+</ul>
+
+@using (Ajax.BeginForm("SendMessage", "Message",
+    new AjaxOptions
+    {
+        HttpMethod = "post",
+        InsertionMode = InsertionMode.InsertAfter,
+        UpdateTargetId = "messages",
+    }))
+{
+    @Html.HiddenFor(m => m.Friend.Id)
+    <input type="text" name="text" />
+    <input type="submit" value="Send" />
+}

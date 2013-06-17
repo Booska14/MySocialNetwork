@@ -1,0 +1,8 @@
+﻿@model IEnumerable<MySocialNetwork.Models.Message>
+
+<ul id="messages">
+    @foreach (var message in Model)
+    {
+        @Html.Partial("MessagePartial", message)
+    }
+</ul>

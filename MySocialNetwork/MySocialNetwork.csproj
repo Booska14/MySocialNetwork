@@ -243,6 +243,8 @@
     <Content Include="Views\News\CommentPartial.cshtml" />
     <Content Include="Views\News\CommentsPartial.cshtml" />
     <Content Include="Views\Message\Index.cshtml" />
+    <Content Include="Views\Message\MessagesPartial.cshtml" />
+    <Content Include="Views\Message\MessagePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

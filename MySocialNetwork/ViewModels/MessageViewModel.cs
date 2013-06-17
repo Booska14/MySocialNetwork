@@ -9,6 +9,7 @@ namespace MySocialNetwork.ViewModels
     public class MessageViewModel
     {
         public IEnumerable<User> Friends { get; set; }
+        public User Friend { get; set; }
         public IEnumerable<Message> Messages { get; set; }
     }
 }
