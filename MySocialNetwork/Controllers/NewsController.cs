@@ -68,20 +68,18 @@ namespace MySocialNetwork.Controllers
         public ActionResult AddComment(int id, string text)
         {
             var status = context.Status.Find(id);
-            Comment comment = null;
-
-            if (currentUser.CanCreate(status))
+            Comment comment = new Comment
             {
-                comment = new Comment
-                {
-                    Status = status,
-                    Author = currentUser,
-                    DateTime = DateTime.Now,
-                    Text = text,
-                    IsDeletable = true,
-                    IsUpdatable = true
-                };
+                Status = status,
+                Author = currentUser,
+                DateTime = DateTime.Now,
+                Text = text,
+                IsDeletable = true,
+                IsUpdatable = true
+            };
 
+            if (currentUser.CanCreate(comment))
+            {
                 context.Comments.Add(comment);
                 context.SaveChanges();
             }

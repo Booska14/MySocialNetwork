@@ -26,9 +26,9 @@ namespace MySocialNetwork.Models
             }
         }
 
-        public bool CanCreate(Status status)
+        public bool CanCreate(Comment comment)
         {
-            return Id == status.Author.Id || Friends.Any(f => f.Id == status.Author.Id);
+            return Id == comment.Status.Author.Id || Friends.Any(f => f.Id == comment.Status.Author.Id);
         }
 
         public bool CanUpdate(Comment comment)
